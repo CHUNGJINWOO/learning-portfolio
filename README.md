@@ -1,100 +1,220 @@
-# ☁️ Cloud-based ROS2 Distributed Development Environment
+# 🤖 ROS 2 로보틱스 개발 및 학습 저장소
 
-## 1. 프로젝트 개요 (Overview)
-- **목적**: 로컬 Windows PC와 클라우드(Oracle Cloud Infrastructure) 간의 원격 로보틱스 개발 환경 구축
-- **핵심 기술**: ROS2 Humble, Ubuntu 22.04 LTS, Tailscale VPN, VS Code Remote-SSH, Git/GitHub
+> **ROS 2 Humble 기반의 프로그래밍 학습 기록**, **AgileX LIMO 로봇 시뮬레이션 및 분산 제어**, **클라우드(OCI) 기반 원격 개발 인프라**를 통합 관리하는 저장소입니다.
 
-## 2. 아키텍처 및 기술 스택 선택 이유 (Architecture & Rationale)
+---
 
-### 📌 클라우드 서버 (Oracle Cloud Infrastructure, Ubuntu 22.04)
-- **선택 이유**: 로컬 PC 하드웨어 제약을 극복하고, 24시간 언제 어디서나 접근 가능한 독립된 Linux 서버 환경 확보
-- **장점**: 고성능 연산 자원 활용 가능, 실제 로봇 배포 환경과 동일한 우분투 운영체제 보장
-- **단점**: 네트워크 지연 발생 가능 및 초기 세팅 시간 소요
+## 📌 목차 (Table of Contents)
 
-### 📌 보안 통신망 (Tailscale VPN)
-- **선택 이유**: 공인 IP를 직접 노출하지 않고 방화벽 외부에서 안전하게 사설망 기반 SSH 접속 및 ROS2 통신 수행
-- **장점**: 포트 포워딩 없이 WireGuard 기반 암호화 통신 보장, 백신 충돌 시 우회 가능
-- **단점**: 백그라운드에서 VPN 앱이 구동되어 있어야 함
+1. [프로젝트 소개 (Introduction)](#1-프로젝트-소개-introduction)
+2. [저장소 구조 (Repository Architecture)](#2-저장소-구조-repository-architecture)
+3. [ROS 2 학습 시작하기 (Learning Records)](#3-ros-2-학습-시작하기-learning-records)
+4. [LIMO 로봇 개발 및 제어 (LIMO Robot Application)](#4-limo-로봇-개발-및-제어-limo-robot-application)
+5. [원격 개발 및 분산 통신 인프라 (Cloud Infrastructure)](#5-원격-개발-및-분산-통신-인프라-cloud-infrastructure)
+6. [현재 상태 및 검증 범위 (Status & Verification Scope)](#6-현재-상태-및-검증-범위-status-verification-scope)
+7. [문서 탐색 (Documentation Index)](#7-문서-탐색-documentation-index)
 
-### 📌 원격 개발 환경 (VS Code Remote-SSH)
-- **선택 이유**: 원격 서버의 CLI 환경과 로컬 PC의 GUI 편집 편의성 결합
+---
 
-## ☁️ Cloud-Based 원격 개발 환경 아키텍처
+## 1. 프로젝트 소개 (Introduction)
 
-본 캡스톤 프로젝트는 로컬 하드웨어(LG Gram)의 성능 한계를 극복하고, 장소에 구애받지 않는 유연한 개발 환경을 위해 **Oracle Cloud Infrastructure(OCI) 기반의 무설치 원격 IDE 환경**을 구축했습니다.
+본 저장소는 로보틱스 소프트웨어 개발 역량을 단계별로 축적하고 실전 플랫폼에 적용하기 위해 구성된 통합 프로젝트 저장소입니다. 세 가지 핵심 축으로 구성되어 있습니다:
 
-### 🔹 Architecture 요약
-- **Compute Server**: Oracle Cloud Ubuntu 22.04 LTS (ROS2 / LIMO 시뮬레이션 연산 전담)
-- **Web IDE**: `code-server`를 활용한 VS Code 브라우저 렌더링
-- **Network Security**: `Tailscale Funnel`을 이용한 Ingress 통제 및 HTTPS 자동 암호화
+1. **ROS 2 Python 프로그래밍 기초 학습**: 수학적 신호 모델링과 객체지향(OOP) 클래스 설계부터 시작하여, 대화형 환경(Jupyter Notebook)에서의 Turtlesim 제어 실습, 그리고 정식 `ament_python` 기반 ROS 2 패키지 구축까지의 단계별 기록을 관리합니다.
+2. **AgileX LIMO 자율주행 플랫폼 및 원격 제어**: 소형 모바일 로봇인 LIMO의 ROS 2 드라이버, 가제보(Gazebo) 시뮬레이션 모델, URDF/Xacro 형상 및 메시지 패키지와 더불어 로컬-클라우드 간 원격 조향을 위한 퍼블리셔 노드를 포함합니다.
+3. **클라우드 기반 원격 개발 및 고신뢰성 인프라**: 로컬 노트북의 하드웨어 한계를 극복하기 위해 Oracle Cloud Infrastructure(OCI) 상에 웹 IDE(`code-server`)를 구축하고, 사설 가상망(`Tailscale VPN`), Fast DDS Discovery Server 분산 통신, 자동화 백업 체계를 결합한 원격 로보틱스 개발 환경을 운영합니다.
 
-### 🔹 도입 배경 및 기술적 이점
-1. **Zero-Install 접속**: 로컬 PC에 특정 프로그램(VS Code, VPN 등)을 설치할 필요 없이 웹 브라우저(Chrome, Edge 등)만으로 즉각적인 개발 환경 접근이 가능합니다.
-2. **보안성 강화 (HTTPS & Auth)**: Tailscale Funnel을 통해 포트 개방 없이 안전한 터널링을 구현하였으며, HTTPS 기반의 통신 암호화와 자체 비밀번호 인증을 통해 공용 네트워크에서의 패킷 스니핑 및 무단 접근을 차단했습니다.
-3. **분산 처리**: 무거운 Gazebo 시뮬레이션 물리 연산과 ROS2 빌드는 클라우드 서버 자원을 활용하고, 로컬 디바이스는 가벼운 시각화 렌더링만 담당하여 하드웨어 병목 현상을 방지했습니다.
+---
 
-ROS2 원격 분산 통신 환경 구축 (Oracle Cloud - 로컬 WSL2)
-1. 목적 (Objective)
-원격지에 위치한 오라클 클라우드(Oracle Cloud) 서버와 로컬 환경의 Windows WSL2(Ubuntu) 간에 안정적인 ROS2 양방향 통신망을 구축하는 것입니다. 물리적으로 다른 네트워크에 있는 두 시스템이 마치 같은 공유기에 연결된 것처럼 서로의 ROS2 노드(Node)를 인식하고 데이터를 주고받도록 만드는 것을 목표로 합니다.
+## 2. 저장소 구조 (Repository Architecture)
 
-2. 해당 방식을 선택한 이유 (Reasoning)
-ROS2 원격 통신을 구현하는 방법은 여러 가지가 있으나, 다음의 이유로 WSL2 내부 Tailscale 설치 및 Fast DDS 유니캐스트(Unicast) 프로파일 지정 방식을 채택했습니다.
+실제 저장소 디렉터리 및 주요 파일 구성은 다음과 같습니다:
 
-Tailscale(VPN) 사용: 포트 포워딩이나 복잡한 공유기 방화벽 설정 없이, 안전한 P2P(Peer-to-Peer) 가상 사설망을 쉽게 구성할 수 있습니다.
+```text
+ros2/
+├── README.md                      # [본 문서] 저장소 통합 대시보드 및 인덱스
+├── learning/                      # ROS 2 Python 단계별 학습 기록 영역
+│   ├── README.md                  # 학습 로드맵 및 단계별 실습 가이드
+│   ├── notebooks/                 # 대화형 주피터 노트북 5종 (01~05)
+│   │   ├── 01_sin_modeling.ipynb             # 1단계: NumPy 기반 사인파 신호 모델링
+│   │   ├── 02_python_oop_class.ipynb         # 2단계: OOP 클래스 상속 및 super()
+│   │   ├── 03_topic_publisher_turtlesim.ipynb # 3단계: Topic Publisher (/turtle1/cmd_vel)
+│   │   ├── 04_topic_subscriber_turtlesim.ipynb# 4단계: Topic Subscriber (/turtle1/pose)
+│   │   └── 05_service_client_turtlesim.ipynb  # 5단계: Service Client (/turtle1/teleport_absolute)
+│   └── my_package_rclcpy/         # ROS 2 Python 정규 패키지
+│       ├── README.md              # 패키지 빌드 방법 및 5개 노드 실행 가이드
+│       ├── package.xml            # 패키지 메타데이터 및 의존성 선언
+│       ├── setup.py               # console_scripts 엔트리포인트 5종 등록
+│       └── my_package_rclcpy/     # 소스 코드 (my_first_node, talker, listener 등)
+├── src/                           # 로봇 애플리케이션 소스 코드 영역
+│   ├── README.md                  # 소스 코드 및 알고리즘 설계 문서
+│   ├── remote_teleop_node.py      # 로컬에서 클라우드 로봇으로 Twist 명령을 전송하는 원격 제어 노드
+│   ├── limo_ros2/                 # AgileX LIMO 로봇 공식 패키지 모음
+│   │   ├── limo_base/             # LIMO 베이스 드라이버 노드
+│   │   ├── limo_car/              # Gazebo 시뮬레이션 구동 런치 및 환경 설정
+│   │   ├── limo_description/      # 로봇 URDF/Xacro 모델 및 3D 메시(DAE, STL)
+│   │   ├── limo_msgs/             # LIMO 전용 커스텀 상태 메시지
+│   │   └── Readme.md              # LIMO 패키지 설명서
+│   └── gazebo_ros_pkgs/           # Gazebo 시뮬레이션 연동을 위한 플레이스홀더 (현재 비어 있음)
+├── docs/                          # 인프라, 아키텍처 및 트러블슈팅 전문 문서
+│   ├── ARCHITECTURE.md            # 시스템 아키텍처 및 기술 스택 선정 이유
+│   ├── SETUP_GUIDE.md             # OCI, Tailscale, code-server 단계별 구축 가이드
+│   ├── CLOUD.md                   # 시뮬레이션 결과물 클라우드 저장 및 백업 인프라 구축기
+│   ├── TROUBLESHOOTING.md         # 네트워크 충돌, 보안, XML 파싱 트러블슈팅 일지
+│   ├── CLOUD_WEB_IDE_SECURITY_RECOVERY.md # 웹 IDE 보안 침해 분석 및 fail2ban 복구 기록
+│   └── README_CLOUD_IDE_UPDATE.md # 원격 개발 환경 운영 및 보안 패치 기록
+├── scripts/                       # 관리, 보안, 백업 자동화 스크립트 모음
+│   ├── 01 setup ssh key · SH      # SSH 키 생성 및 클라우드 서버 등록
+│   ├── 02 mount data volume · SH  # OCI 블록 볼륨 포맷 및 마운트
+│   ├── 03 test transfer · SH      # 파일 전송 연결 테스트
+│   ├── 04 setup rclone · SH       # Google Drive / Cloud rclone 연동 설정
+│   ├── 05 backup · SH             # rclone 기반 이중 백업 실행
+│   ├── 06_register_task_scheduler.ps1 # Windows 작업 스케줄러 등록 스크립트
+│   └── 07 harden code server · SH # fail2ban + msmtp 보안 강화 스크립트
+└── wokwi/                         # 아두이노/임베디드 시뮬레이션 프로젝트들
+    └── 임베디드 시스템 ...         # LED, FND, 스위치, 조이스틱, 센서 등 9종 Wokwi 시뮬레이션
+```
 
-WSL2 내부에 독립적 VPN 구축: Windows 호스트에만 Tailscale을 설치할 경우, Windows의 가상 라우터(NAT)가 외부에서 들어오는 UDP 데이터 패킷을 WSL2 내부로 전달하지 못하고 차단합니다. 이를 우회하기 위해 WSL2 우분투 환경 내부에 직접 Tailscale을 설치하여 서버와 1:1 직통 통신 터널을 뚫었습니다.
+---
 
-Fast DDS Peer 직접 지정: 일반적인 ROS2의 노드 탐색 방식인 '멀티캐스트(Multicast)'는 가상 사설망(VPN) 환경에서 차단되는 경우가 많습니다. 따라서 통신 미들웨어를 Fast DDS로 설정하고, 상대방의 IP를 명시적으로 가리키는 fastdds.xml 프로파일을 작성하여 멀티캐스트 없이도 서로를 찾을 수 있도록 설정했습니다.
+## 3. ROS 2 학습 시작하기 (Learning Records)
 
-3. 이를 통해 얻은 이득 (Benefits)
-분산 제어 시스템 기반 마련: 로컬 컴퓨터의 연산 한계를 벗어나 클라우드 서버의 강력한 컴퓨팅 자원을 활용할 수 있습니다. 향후 무거운 연산(AI, SLAM, 네비게이션 등)은 클라우드에서 처리하고, 실제 모터 구동 및 센서 제어는 현장의 로컬 기기에서 수행하는 고도화된 로봇 시스템을 설계할 수 있습니다.
+기초 개념 학습과 실습 코드는 [`learning/`](learning/README.md) 디렉터리에 체계화되어 있습니다.
 
-유연한 원격 제어: 물리적인 거리 제약이나 복잡한 네트워크 환경(공공 와이파이, 방화벽 등)의 방해를 받지 않고, 인터넷이 연결된 곳이라면 어디서든 로봇 시스템을 제어하고 모니터링할 수 있는 인프라를 확보했습니다.
+### 3.1. 대화형 실습 순서 (Jupyter Notebooks)
+Turtlesim을 활용하여 통신 메커니즘을 빠르게 실험한 5개의 노트북입니다:
+1. **[01_sin_modeling.ipynb](learning/notebooks/01_sin_modeling.ipynb)**: NumPy와 Matplotlib을 활용한 사인파 수식 모델링 및 그래프 시각화
+2. **[02_python_oop_class.ipynb](learning/notebooks/02_python_oop_class.ipynb)**: 클래스 선언, 상속, 메서드 오버라이딩, `super()`를 통한 ROS 2 Node 클래스 상속 선수학습
+3. **[03_topic_publisher_turtlesim.ipynb](learning/notebooks/03_topic_publisher_turtlesim.ipynb)**: `geometry_msgs/msg/Twist` 메시지 발행을 통한 거북이 이동 제어
+4. **[04_topic_subscriber_turtlesim.ipynb](learning/notebooks/04_topic_subscriber_turtlesim.ipynb)**: `turtlesim/msg/Pose` 메시지 구독을 통한 실시간 좌표 수신
+5. **[05_service_client_turtlesim.ipynb](learning/notebooks/05_service_client_turtlesim.ipynb)**: `turtlesim/srv/TeleportAbsolute` 서비스 클라이언트 비동기 호출 및 서비스 대기
 
-4. 발생한 문제점 및 해결 방안 (Troubleshooting)
-이슈 1: Windows NAT에 의한 수신 패킷 차단
-증상: Ping 테스트는 성공하여 물리적 연결은 확인되었으나, ROS2 데이터는 수신되지 않았습니다.
+> [!NOTE]
+> 자세한 학습 로드맵과 노트북 실행 시 주의사항(대화형 spin 블로킹 탈출 기법, 서비스 미기동 시 대기 루프 분석)은 [`learning/README.md`](learning/README.md)를 참고하십시오.
 
-원인: Windows에 설치된 Tailscale이 받은 데이터를 WSL2 내부로 넘겨주지 못했습니다.
+### 3.2. 정규 ROS 2 패키지 (`my_package_rclcpy`)
+대화형 실습을 거쳐 ROS 2 표준 빌드 시스템으로 패키징한 예제입니다.
 
-해결 방안: WSL2 터미널에서 리눅스용 Tailscale을 직접 다운로드하고 설치하여 독립적인 네트워크 인터페이스(tailscale0)를 생성했습니다.
+- **포함된 노드**:
+  - `my_first_node`: `Node` 상속 기반 최소 노드
+  - `talker` / `listener`: `std_msgs/msg/String` 기반 토픽 발행/구독
+  - `add_two_ints_server` / `add_two_ints_client`: `example_interfaces/srv/AddTwoInts` 기반 정수 덧셈 서비스 서버/클라이언트
+- **빌드 방법 (`colcon` 외부 경로 직접 빌드 권장)**:
+  ```bash
+  source /opt/ros/humble/setup.bash
+  cd ~/ros2_ws
+  colcon build --symlink-install --paths ~/ros2/learning/my_package_rclcpy
+  source install/setup.bash
+  ```
+- **상세 안내**: 노드별 실행 및 검증 명령어는 [`learning/my_package_rclcpy/README.md`](learning/my_package_rclcpy/README.md)를 참조하십시오.
 
-이슈 2: 미들웨어(Middleware) 설정 충돌
-증상: VPN 환경이 정상 작동함에도 불구하고 노드 간 통신이 이루어지지 않았습니다.
+---
 
-원인: .bashrc 파일에 타 미들웨어인 Cyclone DDS가 강제 할당(export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp)되어 있어, 기껏 작성한 Fast DDS 설정이 완전히 무시되고 있었습니다.
+## 4. LIMO 로봇 개발 및 제어 (LIMO Robot Application)
 
-해결 방안: 양쪽 기기의 .bashrc에서 해당 구문을 삭제하고, 환경 변수를 초기화하여 기본 통신 방식인 Fast DDS가 정상 작동하도록 복구했습니다.
+`src/` 디렉터리는 학습용 예제와 명확히 분리된 **로봇 애플리케이션 소스 코드 영역**입니다.
 
-이슈 3: XML 설정 파일 파싱(Parsing) 에러
-증상: 수신 노드(listener) 실행 시 [XMLPARSER Error]가 발생하며 프로그램이 종료되었습니다.
+### 4.1. LIMO ROS 2 패키지 (`src/limo_ros2/`)
+AgileX Robotics의 다목적 모바일 로봇 LIMO를 제어하기 위한 ROS 2 Humble 패키지군입니다.
+- **`limo_base`**: 시리얼 통신 기반 LIMO 로봇 하드웨어 드라이버 및 베이스 제어 노드
+- **`limo_car`**: Gazebo 시뮬레이션 환경 실행 launch 파일 및 RViz 설정
+- **`limo_description`**: 4륜 차동(Differential), 아커만(Ackermann), 메카넘(Mecanum) 등 다양한 주행 모드를 지원하는 URDF/Xacro 모델 및 3D 메시
+- **`limo_msgs`**: 로봇 모션 상태 및 오류 코드를 전달하는 전용 메시지(`LimoStatus.msg`)
+- 상세 가이드는 [`src/limo_ros2/Readme.md`](src/limo_ros2/Readme.md)를 참고하십시오.
 
-원인: fastdds.xml 파일 내의 프로파일 기본값 설정 속성명이 잘못 기재되었습니다. (is_default_true로 오기입)
+### 4.2. 원격 제어 노드 (`src/remote_teleop_node.py`)
+- **설계 의도**: 사용자의 물리적 입력 장치(키보드 등)는 로컬 노트북(LG Gram)에 연결되어 있고, 무거운 시뮬레이션 연산(Gazebo)은 OCI 클라우드 서버에서 동작하는 분산 환경을 전제로 설계되었습니다.
+- **동작 원리**: 표준 `geometry_msgs/msg/Twist` 메시지를 사용하며, Tailscale VPN 가상 사설망을 경유해 클라우드 서버의 `/cmd_vel` 토픽으로 선속도와 각속도를 원격 전송합니다.
+- 자세한 아키텍처 배경은 [`src/README.md`](src/README.md)에 기술되어 있습니다.
 
-해결 방안: 속성명을 공식 문법인 is_default_profile="true"로 수정하여 문법 오류를 해결했습니다.
+> [!IMPORTANT]
+> `src/gazebo_ros_pkgs/`는 시뮬레이션 연동을 위한 플레이스홀더 디렉터리(현재 비어 있음)입니다. 전체 LIMO 시뮬레이션 및 실제 로봇 주행 테스트는 추후 실기 연동 단계에서 진행될 예정입니다.
 
-5. 사용된 핵심 코드 및 설정 (Codes)
-1) WSL2 내부 Tailscale 설치 및 실행
-Bash
-# 패키지 다운로드 및 설치
-curl -fsSL https://tailscale.com/install.sh | sh
+---
 
-# Tailscale 실행 및 계정 연동
-sudo tailscale up
+## 5. 원격 개발 및 분산 통신 인프라 (Cloud Infrastructure)
 
-# 부여된 Tailscale IP 확인
-tailscale ip -4
-2) 미들웨어 강제 설정 해제
-Bash
-# 환경 변수 강제 할당 해제
-unset RMW_IMPLEMENTATION
+본 프로젝트는 원격 클라우드(Oracle Cloud)와 로컬 환경(Windows WSL2) 간의 안전하고 유연한 로보틱스 개발 환경을 구축하여 운영하고 있습니다.
 
-# .bashrc 설정 갱신
-source ~/.bashrc
-3) Fast DDS 유니캐스트 프로파일 생성 (fastdds.xml)
-로컬 환경에서 원격 클라우드 서버의 VPN IP(예: 100.127.79.18)를 직접 바라보도록 설정합니다.
+### 5.1. 아키텍처 요약
+- **Compute Server**: Oracle Cloud Infrastructure (Ubuntu 22.04 LTS, ROS 2 Humble)
+- **Zero-Install Web IDE**: `code-server`를 활용한 웹 브라우저 기반 VS Code 개발 환경
+- **보안 가상망**: `Tailscale VPN` 및 `Tailscale Funnel` 기반 HTTPS 터널링과 접근 통제
 
-XML
+### 5.2. Fast DDS Discovery Server 분산 통신
+VPN 환경에서는 멀티캐스트(Multicast) 패킷이 차단되는 한계가 있습니다. 이를 해결하기 위해 Fast DDS Discovery Server 아키텍처를 도입했습니다.
+
+1. **오라클 클라우드 서버 (Discovery Server)**:
+   - 방화벽 수신 포트: `TCP/UDP 11811` 개방
+   - `systemd` 서비스(`fastdds.service`)를 통해 부팅 시 자동 기동:
+     ```bash
+     fastdds discovery -i 0 -p 11811
+     ```
+2. **로컬 노트북 WSL2 (Client Profile)**:
+   - `~/fastdds.xml` 프로필을 통해 서버의 Tailscale VPN IP 및 포트(`11811`)를 명시적으로 지정
+   - 빠른 망 전환을 위한 `.bashrc` 환경 변수 스위칭 Alias 제공:
+     ```bash
+     # 클라우드 통신 모드 활성화
+     cloud_on
+
+     # 로컬 와이파이 / LIMO 로컬 모드로 복귀
+     cloud_off
+     ```
+
+<details>
+<summary>📌 기존 설정 파일 원문 예시 (과거 기록 보존, 현재 운영 상태 미검증)</summary>
+
+> 다음 설정 블록은 기존 저장소 기록(`HEAD:README.md`)에 보존되어 있던 설정 예시 원문입니다. 현재 서버 및 네트워크의 실시간 운영 상태와 일치하는지는 이번 작업 범위에서 재검증하지 않았습니다.
+
+#### 1) Discovery Server 자동 실행 서비스 (`/etc/systemd/system/fastdds.service`)
+```ini
+[Unit]
+Description=Fast DDS Discovery Server
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash && fastdds discovery -i 0 -p 11811"
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 2) Discovery Server 클라이언트 프로필 (`~/fastdds.xml`)
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <participant profile_name="client_profile" is_default_profile="true">
+        <rtps>
+            <builtin>
+                <discovery_config>
+                    <discoveryProtocol>CLIENT</discoveryProtocol>
+                    <discoveryServersList>
+                        <!-- 오라클 서버의 GUID Prefix -->
+                        <RemoteServer prefix="44.53.00.5f.45.50.52.4f.53.49.49.41">
+                            <metatrafficUnicastLocatorList>
+                                <locator>
+                                    <udpv4>
+                                        <!-- 오라클 서버의 Tailscale IP 및 개방된 포트 -->
+                                        <address>100.127.79.18</address>
+                                        <port>11811</port>
+                                    </udpv4>
+                                </locator>
+                            </metatrafficUnicastLocatorList>
+                        </RemoteServer>
+                    </discoveryServersList>
+                </discovery_config>
+            </builtin>
+        </rtps>
+    </participant>
+</profiles>
+```
+
+#### 3) 초기 P2P 유니캐스트 프로필 (`fastdds.xml`)
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
     <participant profile_name="connect_profile" is_default_profile="true">
@@ -111,113 +231,54 @@ XML
         </rtps>
     </participant>
 </profiles>
-4) 설정 적용 및 테스트 실행
-Bash
-# 작성한 XML 파일을 시스템 환경 변수에 등록 (.bashrc에 추가)
-echo "export FASTRTPS_DEFAULT_PROFILES_FILE=/home/$(whoami)/fastdds.xml" >> ~/.bashrc
-source ~/.bashrc
+```
+</details>
 
-# 클라우드 서버 터미널 (데이터 송신)
-ros2 run demo_nodes_cpp talker
+### 5.3. 주요 트러블슈팅 및 보안 운영 이력
+- **Windows NAT 패킷 차단**: WSL2 내부에 독립적으로 Linux용 Tailscale을 설치하여 해결
+- **미들웨어 충돌**: `.bashrc`의 Cyclone DDS 강제 지정을 해제하고 Fast DDS로 일원화
+- **XML 프로필 파싱 오류**: `is_default_profile="true"` 속성 오기입 수정
+- **웹 IDE 보안 강화**: 외부 무단 접근을 방지하기 위해 `fail2ban`과 `msmtp` 기반 침입 차단 및 실시간 알림 체계 구축 ([`docs/CLOUD_WEB_IDE_SECURITY_RECOVERY.md`](docs/CLOUD_WEB_IDE_SECURITY_RECOVERY.md) 참조)
 
-# 로컬 WSL2 터미널 (데이터 수신)
-ros2 run demo_nodes_py listener
+---
 
-# ROS 2 Fast DDS Discovery Server 원격 통신 구축 가이드 (Oracle Cloud & WSL2)
+## 6. 현재 상태 및 검증 범위 (Status & Verification Scope)
 
-## 1. 개요
-Tailscale 가상 네트워크망을 이용하여 오라클 클라우드 서버와 로컬 노트북(WSL2) 환경 간의 ROS 2 노드 통신을 구축하는 방법입니다. Fast DDS Discovery Server를 활용하여 동적 포트 문제를 해결합니다.
+본 저장소의 실제 구현 및 검증 현황을 투명하게 기록합니다:
 
-## 2. 오라클 클라우드 서버 설정 (서버 측)
+| 영역 | 항목 | 검증 상태 | 상세 내용 |
+| :--- | :--- | :---: | :--- |
+| **학습** | Python 신호 모델링 & OOP | ✅ 검증 완료 | `01_sin_modeling.ipynb`, `02_python_oop_class.ipynb` 실행 확인 |
+| **학습** | Turtlesim 토픽/서비스 실습 | ⚠️ 기록 보존 | 주피터 대화형 코드 및 실행 로그 보존 (서비스 클라이언트는 대기 로그 상태) |
+| **학습** | `my_package_rclcpy` 패키지 | ✅ 빌드 검증 완료 | 격리된 빌드 환경에서 `colcon build` 및 5개 실행 바이너리 생성 확인 |
+| **애플리케이션** | LIMO ROS 2 소스 코드 | ⚠️ 정적 코드 확인 | `limo_base`, `limo_car`, `limo_description`, `limo_msgs` 소스 보존 (전체 빌드 미수행) |
+| **애플리케이션** | 원격 제어 노드 (`remote_teleop_node`) | ✅ 문법 검증 완료 | 독립 Python 노드 구조 확인 (실제 로봇 주행 테스트 대기) |
+| **인프라** | Tailscale VPN & code-server | ✅ 운영 중 | 웹 브라우저 접속 및 분산 개발 환경 가동 중 |
+| **인프라** | Fast DDS Discovery Server | ⚠️ 과거 검증 이력 | 클라우드-WSL2 간 `talker`/`listener` 통신 검증 이력 확인. 이번 작업에서는 실시간 통신을 재검증하지 않음. |
 
-### 2.1. 방화벽 설정
-* 오라클 클라우드 VCN 보안 목록에서 수신 규칙 `TCP/UDP 11811` 포트를 개방합니다.
+> [!CAUTION]
+> 본 프로젝트는 현재 학습 및 분산 시뮬레이션 인프라 구축 단계이며, 상용 배포(Production-ready) 상태나 완전 자율주행이 구현된 상태가 아닙니다.
 
-### 2.2. Fast DDS 자동 실행 서비스 등록 (systemd)
-서버 재부팅 시에도 Discovery Server가 백그라운드에서 자동 실행되도록 설정합니다.
+---
 
-1. 서비스 파일 생성
-```bash
-sudo nano /etc/systemd/system/fastdds.service
+## 7. 문서 탐색 (Documentation Index)
 
-[Unit]
-Description=Fast DDS Discovery Server
-After=network.target
+프로젝트 세부 사항은 아래 링크를 통해 확인할 수 있습니다:
 
-[Service]
-Type=simple
-User=ubuntu
-ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash && fastdds discovery -i 0 -p 11811"
-Restart=on-failure
-RestartSec=5
+### 📖 학습 문서
+- [ROS 2 Python 학습 가이드 & 인덱스](learning/README.md)
+- [my_package_rclcpy 패키지 빌드 및 실행 가이드](learning/my_package_rclcpy/README.md)
 
-[Install]
-WantedBy=multi-user.target
+### 🤖 소스 및 로봇 문서
+- [ROS 2 소스 코드 및 분산 알고리즘 설계](src/README.md)
+- [AgileX LIMO ROS 2 공식 가이드](src/limo_ros2/Readme.md)
+- [원격 조향 퍼블리셔 노드 소스](src/remote_teleop_node.py)
 
-서비스 활성화 및 실행
-sudo systemctl daemon-reload
-sudo systemctl enable fastdds
-sudo systemctl start fastdds
-
-상태 확인: systemctl status fastdds (active (running) 확인)
-
-자동 실행 등록 확인: systemctl is-enabled fastdds (enabled 확인)
-
-3. 로컬 노트북 설정 (WSL2 클라이언트 측)
-
-3.1. Fast DDS 클라이언트 XML 프로필 설정
-동적 포트 바인딩 문제를 우회하고 서버에 안정적으로 연결하기 위해 클라이언트 프로필을 작성합니다.
-
-XML 파일 생성
-nano ~/fastdds.xml  
-
-아래 내용 입력 후 저장 (서버 IP 및 GUID Prefix 주의)
-<?xml version="1.0" encoding="UTF-8" ?>
-<profiles xmlns="[http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles](http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles)">
-    <participant profile_name="client_profile" is_default_profile="true">
-        <rtps>
-            <builtin>
-                <discovery_config>
-                    <discoveryProtocol>CLIENT</discoveryProtocol>
-                    <discoveryServersList>
-                        <!-- 오라클 서버의 GUID Prefix 입력 -->
-                        <RemoteServer prefix="44.53.00.5f.45.50.52.4f.53.49.49.41">
-                            <metatrafficUnicastLocatorList>
-                                <locator>
-                                    <udpv4>
-                                        <!-- 오라클 서버의 Tailscale IP 및 개방된 포트 입력 -->
-                                        <address>100.127.79.18</address>
-                                        <port>11811</port>
-                                    </udpv4>
-                                </locator>
-                            </metatrafficUnicastLocatorList>
-                        </RemoteServer>
-                    </discoveryServersList>
-                </discovery_config>
-            </builtin>
-        </rtps>
-    </participant>
-</profiles>
-
-3.2. 환경 변수 스위칭 Alias 등록 (.bashrc)
-클라우드망(오라클 서버)과 로컬망(LIMO 등)을 쉽게 전환할 수 있도록 명령어를 등록합니다.
-
-.bashrc 파일 편집
-nano ~/.bashrc
-
-파일 최하단에 아래 내용 추가 (ROS_IP에는 WSL2의 Tailscale IP 입력)
-# ROS 2 Network Switch
-alias cloud_on='export FASTRTPS_DEFAULT_PROFILES_FILE=/home/$(whoami)/fastdds.xml && export ROS_IP="100.66.59.53" && ros2 daemon stop && ros2 daemon start && echo "Cloud Mode ON: 오라클 클라우드로 통신망이 전환되었습니다."'
-alias cloud_off='unset FASTRTPS_DEFAULT_PROFILES_FILE && unset ROS_IP && ros2 daemon stop && ros2 daemon start && echo "Cloud Mode OFF: LIMO 및 로컬 와이파이망으로 전환되었습니다."'
-
-설정 적용
-source ~/.bashrc
-
-4. 통신 테스트
-터미널에 cloud_on을 입력하여 환경 변수 및 XML 프로필을 적용합니다.
-
-수신 측 터미널에서 노드 실행: ros2 run demo_nodes_py listener
-
-송신 측 터미널에서 노드 실행: ros2 run demo_nodes_cpp talker
-
-정상 작동 시 Listener 화면에 "Hello World"가 지속적으로 수신되는지 확인합니다.
+### ☁️ 인프라 및 운영 문서
+- [시스템 아키텍처 및 기술 스택 선정 이유](docs/ARCHITECTURE.md)
+- [원격 개발 환경 단계별 구축 가이드](docs/SETUP_GUIDE.md)
+- [클라우드 저장소 및 백업 인프라 구축기](docs/CLOUD.md)
+- [네트워크 및 미들웨어 트러블슈팅 일지](docs/TROUBLESHOOTING.md)
+- [원격 개발 환경 보안 침해 복구 및 fail2ban 설정](docs/CLOUD_WEB_IDE_SECURITY_RECOVERY.md)
+- [Cloud IDE 최신 운영 기록](docs/README_CLOUD_IDE_UPDATE.md)
+- [인프라 및 백업 자동화 스크립트 모음](scripts/)

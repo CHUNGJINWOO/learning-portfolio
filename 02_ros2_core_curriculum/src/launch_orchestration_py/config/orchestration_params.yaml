@@ -1,0 +1,4 @@
+/**:
+  ros__parameters:
+    publish_rate_hz: 2.0
+    device_id: "telemetry_bot_orchestrated"

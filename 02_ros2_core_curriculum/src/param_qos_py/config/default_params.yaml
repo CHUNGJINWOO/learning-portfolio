@@ -1,0 +1,4 @@
+/**:
+  ros__parameters:
+    publish_rate_hz: 2.5
+    device_id: "configured_bot_99"

@@ -1,0 +1,44 @@
+# ROS 2 build & runtime artifacts
+build/
+install/
+log/
+test_results/
+frames_*.pdf
+frames_*.gv
+*.bag
+*.db3
+rosbag2_*/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Sensitive environment and key files
+.env
+*.env
+*.pem
+id_rsa*
+
+# IDE and editor temporary files
+.vscode/
+.idea/
+*.swp
+*~
+~$*.docx
+~$*.pptx
+*.tmp
+
+# Operating system files
+.DS_Store
+Thumbs.db

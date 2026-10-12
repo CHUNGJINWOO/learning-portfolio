@@ -35,6 +35,10 @@ ros2/
 ├── README.md                      # [본 문서] 저장소 통합 대시보드 및 인덱스
 ├── learning/                      # ROS 2 Python 단계별 학습 기록 영역
 │   ├── README.md                  # 학습 로드맵 및 단계별 실습 가이드
+│   ├── 01_ros2_core_and_interfaces.md     # 1단계: ROS 2 통신 메커니즘, 커스텀 인터페이스, 센서 규격
+│   ├── 02_limo_application_programming.md # 2단계: LIMO IMU 회전, LiDAR 비상정지, 카메라 차선인식, 통합제어
+│   ├── 03_tf2_and_pose_control.md         # 3단계: TF2 좌표 변환, LIMO TF 트리, 목표 자세 제어(move_to_pose)
+│   ├── 04_local_state_estimation.md       # 4단계: 지역 위치 추정 기초 (엔코더 슬립, IMU 드리프트, 센서융합)
 │   ├── notebooks/                 # 대화형 주피터 노트북 5종 (01~05)
 │   │   ├── 01_sin_modeling.ipynb             # 1단계: NumPy 기반 사인파 신호 모델링
 │   │   ├── 02_python_oop_class.ipynb         # 2단계: OOP 클래스 상속 및 super()
@@ -107,6 +111,13 @@ Turtlesim을 활용하여 통신 메커니즘을 빠르게 실험한 5개의 노
   source install/setup.bash
   ```
 - **상세 안내**: 노드별 실행 및 검증 명령어는 [`learning/my_package_rclcpy/README.md`](learning/my_package_rclcpy/README.md)를 참조하십시오.
+
+### 3.3. ROS 2 & LIMO 심화 학습 가이드 (01~04)
+기초 실습을 거쳐 LIMO 로봇의 센서 응용, 좌표 변환, 위치 추정 기초까지 확장된 체계적인 기술 문서입니다:
+1. **[01. ROS 2 핵심 개념과 통신 인터페이스](learning/01_ros2_core_and_interfaces.md)**: Topic/Service/Action 상태 머신 비교, `wego_msgs` 커스텀 인터페이스 빌드, 파라미터/YAML/Launch 연동, 표준 센서 인터페이스 규격
+2. **[02. LIMO 센서 응용 프로그래밍](learning/02_limo_application_programming.md)**: IMU Yaw 회전 제어(`rotate_absolute`), LiDAR 직교좌표 변환 및 장애물 ROI 판정(`limo_e_stop`), 카메라 CvBridge/HLS 차선 인식(`detect_line`), 3노드 통합 라인트레이싱 제어기(`limo_control`)
+3. **[03. TF2 좌표 변환 및 목표 자세 제어](learning/03_tf2_and_pose_control.md)**: 동차 변환 행렬, 사원수, Broadcaster/Listener, LIMO TF 트리/URDF, 극좌표 제어기(`move_to_pose`)와 후진 주행 로직
+4. **[04. 지역 위치 추정 기초](learning/04_local_state_estimation.md)**: 추측 항법(Dead Reckoning), 바퀴 엔코더 슬립(Slip), IMU 적분 표류(Drift) 현상, 복합 센서 융합(Sensor Fusion)의 당위성
 
 ---
 
@@ -251,6 +262,10 @@ WantedBy=multi-user.target
 | **학습** | Python 신호 모델링 & OOP | ✅ 검증 완료 | `01_sin_modeling.ipynb`, `02_python_oop_class.ipynb` 실행 확인 |
 | **학습** | Turtlesim 토픽/서비스 실습 | ⚠️ 기록 보존 | 주피터 대화형 코드 및 실행 로그 보존 (서비스 클라이언트는 대기 로그 상태) |
 | **학습** | `my_package_rclcpy` 패키지 | ✅ 빌드 검증 완료 | 격리된 빌드 환경에서 `colcon build` 및 5개 실행 바이너리 생성 확인 |
+| **학습** | 통신 인터페이스 & 파라미터 | ✅ 소스 검증 완료 | `wego_msgs`, `wego_service_demo` (Action, Service, Launch, YAML) 확인 |
+| **학습** | LIMO 센서 응용 노드 | 🔍 교재 분석 완료 | 회전(`rotate_absolute`), 비상정지(`limo_e_stop`), 차선인식(`detect_line`), 제어기(`limo_control`) 알고리즘 분석 (실제 하드웨어 미주행) |
+| **학습** | TF2 변환 및 목표 자세 제어 | 🔍 교재 분석 완료 | 동차 변환, Turtlesim TF 시뮬레이션, LIMO TF 트리, `move_to_pose` 극좌표 제어 로직 분석 (실제 하드웨어 미주행) |
+| **학습** | 지역 위치 추정 기초 | 💡 개념 학습 완료 | 엔코더 휠 슬립, IMU 적분 드리프트, 센서 융합 당위성 이해 (가우시안/EKF/SLAM 미학습 분류) |
 | **애플리케이션** | LIMO ROS 2 소스 코드 | ⚠️ 정적 코드 확인 | `limo_base`, `limo_car`, `limo_description`, `limo_msgs` 소스 보존 (전체 빌드 미수행) |
 | **애플리케이션** | 원격 제어 노드 (`remote_teleop_node`) | ✅ 문법 검증 완료 | 독립 Python 노드 구조 확인 (실제 로봇 주행 테스트 대기) |
 | **인프라** | Tailscale VPN & code-server | ✅ 운영 중 | 웹 브라우저 접속 및 분산 개발 환경 가동 중 |
@@ -266,7 +281,11 @@ WantedBy=multi-user.target
 프로젝트 세부 사항은 아래 링크를 통해 확인할 수 있습니다:
 
 ### 📖 학습 문서
-- [ROS 2 Python 학습 가이드 & 인덱스](learning/README.md)
+- [ROS 2 Python 학습 가이드 & 통합 인덱스](learning/README.md)
+- [01. ROS 2 핵심 개념과 통신 인터페이스](learning/01_ros2_core_and_interfaces.md)
+- [02. LIMO 센서 응용 프로그래밍](learning/02_limo_application_programming.md)
+- [03. TF2 좌표 변환 및 목표 자세 제어](learning/03_tf2_and_pose_control.md)
+- [04. 지역 위치 추정 기초](learning/04_local_state_estimation.md)
 - [my_package_rclcpy 패키지 빌드 및 실행 가이드](learning/my_package_rclcpy/README.md)
 
 ### 🤖 소스 및 로봇 문서

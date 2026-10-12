@@ -10,24 +10,28 @@
 
 ```text
 learning/
-├── README.md                      # [본 문서] ROS 2 학습 로드맵 및 통합 안내
-├── notebooks/                     # 단계별 대화형 학습 노트북 (Jupyter Notebook)
-│   ├── 01_sin_modeling.ipynb             # 1단계: NumPy 기반 사인파 신호 모델링
-│   ├── 02_python_oop_class.ipynb         # 2단계: 객체지향(OOP) 클래스 상속 및 super()
-│   ├── 03_topic_publisher_turtlesim.ipynb # 3단계: rclpy Topic Publisher (/turtle1/cmd_vel)
-│   ├── 04_topic_subscriber_turtlesim.ipynb# 4단계: rclpy Topic Subscriber (/turtle1/pose)
-│   └── 05_service_client_turtlesim.ipynb  # 5단계: rclpy Service Client (/turtle1/teleport_absolute)
-└── my_package_rclcpy/             # ROS 2 Python 공식 빌드 패키지
-    ├── README.md                  # 패키지 빌드/실행 상세 가이드
-    ├── package.xml                # 의존성 및 패키지 메타데이터
-    ├── setup.py                   # console_scripts 엔트리포인트 설정
+├── README.md                          # [본 문서] ROS 2 학습 로드맵 및 통합 안내
+├── 01_ros2_core_and_interfaces.md     # 1단계: ROS 2 통신 메커니즘, 커스텀 인터페이스, 센서 규격
+├── 02_limo_application_programming.md # 2단계: LIMO IMU 회전, LiDAR 비상정지, 카메라 차선인식, 통합제어
+├── 03_tf2_and_pose_control.md         # 3단계: TF2 좌표 변환, LIMO TF 트리, 목표 자세 제어(move_to_pose)
+├── 04_local_state_estimation.md       # 4단계: 지역 위치 추정 기초 (엔코더 슬립, IMU 드리프트, 센서융합)
+├── notebooks/                         # 단계별 대화형 학습 노트북 (Jupyter Notebook)
+│   ├── 01_sin_modeling.ipynb                 # 1단계: NumPy 기반 사인파 신호 모델링
+│   ├── 02_python_oop_class.ipynb             # 2단계: 객체지향(OOP) 클래스 상속 및 super()
+│   ├── 03_topic_publisher_turtlesim.ipynb     # 3단계: rclpy Topic Publisher (/turtle1/cmd_vel)
+│   ├── 04_topic_subscriber_turtlesim.ipynb    # 4단계: rclpy Topic Subscriber (/turtle1/pose)
+│   └── 05_service_client_turtlesim.ipynb      # 5단계: rclpy Service Client (/turtle1/teleport_absolute)
+└── my_package_rclcpy/                 # ROS 2 Python 공식 빌드 패키지
+    ├── README.md                      # 패키지 빌드/실행 상세 가이드
+    ├── package.xml                    # 의존성 및 패키지 메타데이터
+    ├── setup.py                       # console_scripts 엔트리포인트 설정
     ├── my_package_rclcpy/
-    │   ├── my_first_node.py       # 기본 Node 클래스 상속 예제
-    │   ├── talker.py              # String 메시지 발행 노드
-    │   ├── listener.py            # String 메시지 수신 노드
-    │   ├── add_two_ints_server.py # 정수 덧셈 서비스 서버
-    │   └── add_two_ints_client.py # 정수 덧셈 서비스 클라이언트
-    └── test/                      # flake8, pep257, copyright 단위 테스트
+    │   ├── my_first_node.py           # 기본 Node 클래스 상속 예제
+    │   ├── talker.py                  # String 메시지 발행 노드
+    │   ├── listener.py                # String 메시지 수신 노드
+    │   ├── add_two_ints_server.py     # 정수 덧셈 서비스 서버
+    │   └── add_two_ints_client.py     # 정수 덧셈 서비스 클라이언트
+    └── test/                          # flake8, pep257, copyright 단위 테스트
 ```
 
 ---
@@ -55,18 +59,31 @@ learning/
 3. **서비스 호출 -> 서버/클라이언트 양방향 구현**:
    - `05_service_client_turtlesim.ipynb`에서 클라이언트 측면만 다루었던 서비스 통신을 `my_package_rclcpy`에서는 `add_two_ints_server.py`와 `add_two_ints_client.py`를 통해 서버와 클라이언트 양방향 전체 메커니즘으로 완성했습니다.
 4. **실전 응용 (LIMO 및 OCI 연계)**:
-   - 토픽 발행 실습에서 익힌 `Twist` 메시지 구조는 [src/remote_teleop_node.py](file:///home/cjinw/ros2/src/remote_teleop_node.py)로 확장되어 실제 OCI 클라우드 시뮬레이션 로봇을 원격 조향하는 실전 코드로 활용됩니다.
+   - 토픽 발행 실습에서 익힌 `Twist` 메시지 구조는 [src/remote_teleop_node.py](../src/remote_teleop_node.py)로 확장되어 실제 OCI 클라우드 시뮬레이션 로봇을 원격 조향하는 실전 코드로 활용됩니다.
 
 ---
 
-## 4. 실행 환경 및 사전 요구사항
+## 4. ROS 2 핵심 및 LIMO 자율주행 학습 로드맵 (상세 문서)
 
-### 4.1. 시스템 환경
+기초 개념을 넘어 LIMO 로봇 플랫폼과 자율주행 소프트웨어 스택으로 확장된 단계별 기술 문서를 제공합니다.
+
+| 단계 | 문서명 | 핵심 주제 | 교재 출처 및 검증 상태 |
+| :---: | :--- | :--- | :--- |
+| **01** | [01_ros2_core_and_interfaces.md](01_ros2_core_and_interfaces.md) | **ROS 2 통신 메커니즘 & 인터페이스**<br>- Topic, Service, Action 상태 머신 비교<br>- Custom msg/srv/action (`wego_msgs`) 빌드<br>- Parameter & Launch 시스템 연동<br>- 표준 센서 인터페이스 (`Imu`, `LaserScan`, `Image`, `Odometry`) | `[WeGo] Limo_ROS2_교재.pdf` (Ch 4 & 5)<br>`[로컬 소스 검증 완료]` (`wego_msgs`, `wego_service_demo`)<br>`[시뮬레이터 실습 완료]` |
+| **02** | [02_limo_application_programming.md](02_limo_application_programming.md) | **LIMO 센서 응용 프로그래밍**<br>- `rotate_absolute.py`: IMU Yaw 오일러 변환 및 각속도 P제어<br>- `limo_e_stop.py`: LiDAR 직교좌표 변환, ROI 장애물 판정<br>- `detect_line.py`: 카메라 CvBridge, HLS 차선 마스킹, 모멘트 도심 오차<br>- `limo_control.py`: 통합 토픽 파이프라인 및 안전 정지 | `[WeGo] Limo_ROS2_교재.pdf` (Ch 6)<br>`[교재 코드 분석 완료]`<br>`[로컬 소스 미구현 (교재 분석 완료)]`<br>`[미검증 (실제 하드웨어 미주행)]` |
+| **03** | [03_tf2_and_pose_control.md](03_tf2_and_pose_control.md) | **TF2 좌표 변환 & 목표 자세 제어**<br>- 동차 변환 행렬, 사원수, Broadcaster / Listener<br>- LIMO 표준 TF 트리, URDF / Xacro, 카메라 틸트 라디안 변환<br>- `move_to_pose.py`: 목표 상대 좌표 조회, 극좌표 ($\rho, \alpha, \beta$) 유도, 비례 제어 및 후진 주행 | `[WeGo] Limo_ROS2_교재.pdf` (Ch 7)<br>`[시뮬레이터 개념 검증 완료]` (Turtlesim)<br>`[교재 코드 분석 완료]` (LIMO TF)<br>`[미검증 (실제 하드웨어 미주행)]` |
+| **04** | [04_local_state_estimation.md](04_local_state_estimation.md) | **지역 위치 추정 기초 (Local State Estimation)**<br>- 추측 항법(Dead Reckoning)과 Local Problem<br>- 바퀴 엔코더 휠 슬립(Slip) 및 누적 오차 특성<br>- IMU 적분 드리프트(Drift) 현상<br>- 상호 보완적 센서 융합(Sensor Fusion)의 당위성 | `[WeGo] Limo_ROS2_교재.pdf` (Ch 8.1)<br>`[개념 학습 완료]`<br>*(가우시안 수학, EKF 수식, SLAM은 미학습으로 분류)* |
+
+---
+
+## 5. 실행 환경 및 사전 요구사항
+
+### 5.1. 시스템 환경
 - **OS**: Ubuntu 22.04 LTS (Jammy Jellyfish)
 - **ROS 2 배포판**: ROS 2 Humble Hawksbill
 - **Python 버전**: Python 3.10 이상
 
-### 4.2. 필수 의존 패키지
+### 5.2. 필수 의존 패키지
 ```bash
 # ROS 2 필수 패키지 설치
 sudo apt update
@@ -81,7 +98,7 @@ sudo apt install -y \
 pip install numpy matplotlib
 ```
 
-### 4.3. 대화형 노트북 실행 시 주의사항 및 실습 기록 분석
+### 5.3. 대화형 노트북 실행 시 주의사항 및 실습 기록 분석
 
 - **Turtlesim 노드 사전 실행 필요**:
   - `03_topic_publisher_turtlesim.ipynb`, `04_topic_subscriber_turtlesim.ipynb`, `05_service_client_turtlesim.ipynb`는 Turtlesim을 대상으로 합니다. 원활한 실습을 위해서는 별도의 GUI/터미널 환경에서 먼저 다음 노드가 실행 중이어야 합니다:
@@ -121,14 +138,20 @@ pip install numpy matplotlib
 
 ---
 
-## 5. 확인된 실습 범위 및 미확인 항목
+## 6. 종합 학습 검증 현황 및 미확인 항목
 
-- **확인 완료 실습**:
-  - Python 기초 신호 모델링 및 OOP 상속
-  - Turtlesim 기반 토픽 발행(`cmd_vel`) 및 구독(`pose`) 대화형 실습
-  - Turtlesim 기반 서비스 클라이언트 대화형 구현 (단, 실행 기록은 서비스 미기동에 따른 대기 상태로 보존됨)
-  - `ament_python` 기반 ROS 2 패키지 빌드 및 5종 콘솔 스크립트 실행 구조
-- **미확인 항목 (추가 조사 필요)**:
-  - ROS 2 액션(Action, 예: Turtlesim `RotateAbsolute`) 실습 코드: CLI 명령 이력에는 존재하나, 작성된 Python 코드는 확인되지 않음.
-  - ROS 2 파라미터(Parameter) 및 Launch 파일: 현재 패키지 내 작성 여부 미확인.
-  - 서비스 클라이언트 노트북의 라이브 응답 성공 여부: 저장된 출력이 대기 루프 상태이므로, 차후 라이브 환경에서의 호출 검증 필요.
+| 영역 | 항목 | 검증 상태 | 상세 설명 및 근거 |
+| :--- | :--- | :---: | :--- |
+| **Python 기초** | 신호 모델링 & OOP | `[검증 완료]` | `01_sin_modeling.ipynb`, `02_python_oop_class.ipynb` 실행 확인 |
+| **Turtlesim 대화형** | 토픽 발행/구독 실습 | `[기록 보존]` | 주피터 노트북 대화형 코드 및 카운터 탈출 로직 확인 |
+| **Turtlesim 대화형** | 서비스 클라이언트 | `[기록 보존]` | `05_service_client_turtlesim.ipynb` (서비스 미기동 대기 상태 출력 보존) |
+| **ROS 2 패키지** | `my_package_rclcpy` | `[빌드 검증 완료]` | 5개 콘솔 스크립트 노드 정상 빌드 및 엔트리포인트 확인 |
+| **통신 & 인터페이스** | `wego_msgs`, `wego_service_demo` | `[로컬 소스 검증 완료]` | Action Server/Client, Service, Launch, Parameter (`turtlesim_params.yaml`) 소스 확인 완료 |
+| **LIMO 응용 노드** | 회전, 비상정지, 차선인식, 제어 | `[교재 코드 분석 완료]` | 교재 6장 알고리즘·수학 분석 완료 (`ros2_ws/src` 미배치, 실제 하드웨어 미주행) |
+| **TF2 & Pose 제어** | TF 변환 이론, Turtlesim TF | `[시뮬레이터 개념 검증 완료]` | 동차 변환, 쿼터니언, Broadcaster/Listener, Carrot 예제 확인 |
+| **TF2 & Pose 제어** | LIMO TF, `move_to_pose` | `[교재 코드 분석 완료]` | 교재 7장 URDF, 틸트 각도, 극좌표 제어 로직 분석 완료 (실제 하드웨어 미주행) |
+| **위치 추정 기초** | 엔코더 슬립, IMU 드리프트 | `[개념 학습 완료]` | 교재 8.1절 물리적 오차 요인 및 복합 센서 융합 당위성 이해 완료 |
+
+> [!NOTE]
+> **미학습 항목 (학습 완료로 기록하지 않는 대상)**:
+> 가우시안 확률 분포 수학 공식, 분산/공분산 행렬 상세 유도, 칼만 필터 및 확장 칼만 필터(EKF) 유도 수식, SLAM(지도 작성) 및 Nav2 자율주행 프레임워크는 향후 단계적 학습 과제로 분류하여 완료된 학습에 포함하지 않았습니다.

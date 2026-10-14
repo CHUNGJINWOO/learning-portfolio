@@ -9,10 +9,10 @@
 #            3) configure email alerts via Gmail SMTP relay (msmtp),
 #               since most cloud providers block outbound port 25
 #
-# Why this was needed: a code-server instance was found publicly
-# exposed via Tailscale Funnel with only an 8-character password and
-# no lockout mechanism. code-server has no built-in brute-force
-# protection, so this script adds it externally.
+# Why this was needed: code-server instances exposed via reverse proxy
+# or tunnels require brute-force lockout protection and real IP logging.
+# code-server has no built-in brute-force protection, so this script adds
+# it externally via fail2ban.
 #
 # This script is interactive - it will prompt for your alert email
 # and Gmail App Password rather than hardcoding secrets, so it is

@@ -153,12 +153,12 @@ portfolio/src/core_pubsub_py/
 ```
 
 ### 5.2 빌드 및 실행 (ROS 2 Humble 환경)
-모든 빌드 및 실행 명령어는 워크스페이스 루트인 `/home/cjinw/learning/portfolio` 디렉터리를 기준으로 수행합니다:
+모든 빌드 및 실행 명령어는 도메인 루트인 `02_ros2_core_curriculum` 디렉터리를 기준으로 수행합니다:
 
 ```bash
 # 1. ROS 2 환경 소싱 및 워크스페이스 빌드
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 colcon build --packages-select core_pubsub_py
 
 # 2. 로컬 오버레이 환경 반영
@@ -268,14 +268,14 @@ ros2 run core_pubsub_py minimal_subscriber
 ## 9. 검증 및 테스트 방법 (Verification)
 
 ### 9.1 정적 문법 및 린트 검증 (오프라인 환경 검증 가능)
-환경 종속성을 최소화하기 위해 Python 모듈 실행 방식(`python3 -m`)을 사용합니다. 모든 명령은 워크스페이스 루트 `/home/cjinw/learning/portfolio`에서 실행합니다:
+환경 종속성을 최소화하기 위해 Python 모듈 실행 방식(`python3 -m`)을 사용합니다. 모든 명령은 `02_ros2_core_curriculum` 디렉터리에서 실행합니다:
 
 ```bash
 # 1. Python 문법 및 바이트코드 컴파일 검사 (오류 없을 시 무출력 종료)
-python3 -m py_compile /home/cjinw/learning/portfolio/src/core_pubsub_py/setup.py /home/cjinw/learning/portfolio/src/core_pubsub_py/core_pubsub_py/*.py
+python3 -m py_compile src/core_pubsub_py/setup.py src/core_pubsub_py/core_pubsub_py/*.py
 
 # 2. PEP 8 스타일 가이드라인 검사 (줄 길이 120자 기준)
-python3 -m flake8 --max-line-length=120 /home/cjinw/learning/portfolio/src/core_pubsub_py/
+python3 -m flake8 --max-line-length=120 src/core_pubsub_py/
 ```
 
 ### 9.2 런타임 통신 검증 (ROS 2 Humble 설치 환경)

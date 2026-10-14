@@ -1,7 +1,7 @@
 # 📡 ROS 2 핵심 개념과 통신 인터페이스 (Core & Interfaces)
 
 > 📖 **교재 참고**: `[WeGo] Limo_ROS2_교재.pdf` (제4장 ROS 2 Basic Programming, pp. 91~167 / 제5장 LIMO 소개 및 센서, pp. 190~218)<br>
-> 💻 **로컬 검증 소스**: `/home/cjinw/learning/ros2_ws/src/wego_msgs/`, `/home/cjinw/learning/ros2_ws/src/wego_service_demo/`<br>
+> 💻 **로컬 검증 소스**: `~/learning/ros2_ws/src/wego_msgs/`, `~/learning/ros2_ws/src/wego_service_demo/`<br>
 > 🏷️ **실습 상태**: `[개념 학습 완료]`, `[로컬 소스 검증 완료]`, `[시뮬레이터 실습 완료]`
 
 ---
@@ -56,7 +56,7 @@ sequenceDiagram
 ## 3. 커스텀 인터페이스 정의 및 빌드 메커니즘
 
 > 📖 **교재 참고**: 제4장 4.5절~4.7절 (pp. 115~151)<br>
-> 💻 **로컬 검증 소스**: `/home/cjinw/learning/ros2_ws/src/wego_msgs/` (`[로컬 소스 검증 완료]`)
+> 💻 **로컬 검증 소스**: `~/learning/ros2_ws/src/wego_msgs/` (`[로컬 소스 검증 완료]`)
 
 ROS 2에서는 표준 타입 외에 시스템 요구사항에 맞는 메시지(`msg`), 서비스(`srv`), 액션(`action`) 인터페이스를 직접 정의할 수 있습니다.
 
@@ -121,7 +121,7 @@ ament_package()
 ## 4. 파라미터(Parameter)와 Launch 시스템 연동
 
 > 📖 **교재 참고**: 제4장 4.8절 (pp. 152~167)<br>
-> 💻 **로컬 검증 소스**: `/home/cjinw/learning/ros2_ws/turtlesim_params.yaml`, `wego_service_demo/launch/turtlesim.launch.py`
+> 💻 **로컬 검증 소스**: `~/learning/ros2_ws/turtlesim_params.yaml`, `wego_service_demo/launch/turtlesim.launch.py`
 
 ### 4.1. 파라미터의 동적 관리
 노드는 하드코딩된 값 대신 외부에서 조정 가능한 파라미터를 등록하여 유연하게 동작합니다:

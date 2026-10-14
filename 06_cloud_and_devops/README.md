@@ -34,10 +34,10 @@
 
 ## 🛠️ 관리 및 보안 자동화 스크립트 (`scripts/`)
 
-- `01 setup ssh key · SH`: SSH 키 페어 생성 및 클라우드 공개키 자동 등록
-- `02 mount data volume · SH`: OCI 블록 볼륨 iSCSI 마운트 및 `/etc/fstab` 영구 등록
-- `03 test transfer · SH`: 로컬-원격 간 대용량 데이터 전송 대역폭 및 연결성 테스트
-- `04 setup rclone · SH`: Google Drive 및 원격 스토리지 연동 설정
-- `05 backup · SH`: rclone 기반 2차 안전 백업 실행 스크립트
-- `06_register_task_scheduler.ps1`: Windows 클라이언트 백업 작업 스케줄러 등록
-- `07 harden code server · SH`: fail2ban 필터 등록 및 msmtp 알림 보안 강화 자동화
+- [`01_setup_ssh_key.sh`](scripts/01_setup_ssh_key.sh): SSH 키 페어 생성 및 클라우드 공개키 자동 등록
+- [`02_mount_data_volume.sh`](scripts/02_mount_data_volume.sh): OCI 블록 볼륨 iSCSI 마운트 및 `/etc/fstab` 영구 등록
+- [`03_test_transfer.sh`](scripts/03_test_transfer.sh): 로컬-원격 간 대용량 데이터 전송 대역폭 및 연결성 테스트
+- [`04_setup_rclone.sh`](scripts/04_setup_rclone.sh): Google Drive 및 원격 스토리지 연동 설정
+- [`05_backup.sh`](scripts/05_backup.sh): rclone 기반 2차 안전 백업 실행 스크립트
+- [`06_register_task_scheduler.ps1`](scripts/06_register_task_scheduler.ps1): Windows 클라이언트 백업 작업 스케줄러 등록
+- [`07_harden_code_server.sh`](scripts/07_harden_code_server.sh): fail2ban 필터 등록 및 msmtp 알림 보안 강화 자동화

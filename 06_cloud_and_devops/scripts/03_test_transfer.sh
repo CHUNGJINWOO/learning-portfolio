@@ -10,7 +10,7 @@
 set -e
  
 KEY_PATH="$HOME/.ssh/oracle_key"
-ORACLE_HOST="100.127.79.18"    # Tailscale 사설 IP
+ORACLE_HOST="<ORACLE_TAILSCALE_IP>"    # Tailscale 사설 IP
 REMOTE_PATH="/mnt/data/"
  
 TEST_FILE="$HOME/test.txt"

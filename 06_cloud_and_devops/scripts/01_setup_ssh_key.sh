@@ -9,7 +9,7 @@
  
 set -e  # 명령 중 하나라도 실패하면 즉시 스크립트를 중단 (자동화 스크립트의 안전장치)
  
-ORACLE_HOST="100.127.79.18"   # Tailscale 사설 IP (ros2-server)
+ORACLE_HOST="<ORACLE_TAILSCALE_IP>"   # Tailscale 사설 IP (ros2-server)
 KEY_PATH="$HOME/.ssh/oracle_key"
  
 # 1) ed25519 키 쌍 생성

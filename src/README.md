@@ -24,3 +24,10 @@
 
 # import rclpy
 # ... (이하 실제 코드 작성)
+
+## 3. 의존성 및 시뮬레이션 환경 (Simulation Dependencies)
+- 본 저장소의 시뮬레이션 패키지(`limo_ros2`)는 Gazebo와의 연동을 위해 `gazebo_ros_pkgs`를 필요로 합니다.
+- `gazebo_ros_pkgs`는 별도 서브모듈 대신 Ubuntu 22.04 LTS 및 ROS 2 Humble 공식 바이너리 패키지로 설치하여 관리합니다:
+  ```bash
+  sudo apt install ros-humble-gazebo-ros-pkgs
+  ```

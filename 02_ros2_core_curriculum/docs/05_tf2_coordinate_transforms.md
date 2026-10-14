@@ -134,7 +134,7 @@ def euler_to_quaternion(roll: float, pitch: float, yaw: float) -> tuple[float, f
 #### 단위 검증 결과 (`quaternion_utils.py`)
 - **실행 명령**:
   ```bash
-  python3 /home/cjinw/learning/portfolio/src/tf2_transforms_py/tf2_transforms_py/quaternion_utils.py
+  python3 src/tf2_transforms_py/tf2_transforms_py/quaternion_utils.py
   ```
 - **실제 검증 출력**:
   ```text

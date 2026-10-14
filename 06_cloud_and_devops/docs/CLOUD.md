@@ -85,7 +85,7 @@ apt-cache policy ros-humble-gazebo-ros-pkgs
 
 ### 4.2 SSH 키 기반 인증 설정 (무인 자동화의 전제조건)
 
-> 전체 코드: [`scripts/01_setup_ssh_key.sh`](./scripts/01_setup_ssh_key.sh)
+> 전체 코드: [`scripts/01_setup_ssh_key.sh`](../scripts/01_setup_ssh_key.sh)
 
 ```bash
 # WSL(jinwoo-1)에서 실행
@@ -105,7 +105,7 @@ echo "<새로 만든 oracle_key.pub 내용>" >> ~/.ssh/authorized_keys
 
 ### 4.3 오라클 블록 볼륨(150GB) 생성 및 마운트
 
-> 전체 코드: [`scripts/02_mount_data_volume.sh`](./scripts/02_mount_data_volume.sh)
+> 전체 코드: [`scripts/02_mount_data_volume.sh`](../scripts/02_mount_data_volume.sh)
 
 **왜**: Oracle Always Free의 블록 스토리지 한도는 부팅 볼륨 포함 총 200GB. 부팅 볼륨이 47GB였으므로, 여유를 두고 150GB를 데이터 전용 볼륨으로 할당했다.
 
@@ -130,13 +130,13 @@ sudo chown ubuntu:ubuntu /mnt/data     # 소유권 이전 (sudo 없이 쓰기 �
 
 ### 4.4 결과물 전송 테스트
 
-> 전체 코드: [`scripts/03_test_transfer.sh`](./scripts/03_test_transfer.sh)
+> 전체 코드: [`scripts/03_test_transfer.sh`](../scripts/03_test_transfer.sh)
 
 ```bash
 # WSL에서
-scp -i ~/.ssh/oracle_key ~/test.txt ubuntu@100.127.79.18:/mnt/data/
+scp -i ~/.ssh/oracle_key ~/test.txt <LINUX_USER>@<ORACLE_TAILSCALE_IP>:/mnt/data/
 ```
-Tailscale IP(`100.127.79.18`)를 통해 SSH 키 인증만으로 비밀번호 없이 전송 성공 확인.
+Tailscale IP(`<ORACLE_TAILSCALE_IP>`)를 통해 SSH 키 인증만으로 비밀번호 없이 전송 성공 확인.
 
 ---
 
@@ -200,7 +200,7 @@ sudo chown ubuntu:ubuntu /mnt/data
 > 코드: [`scripts/03_test_transfer.sh`](../scripts/03_test_transfer.sh)
 
 \`\`\`bash
-scp -i ~/.ssh/oracle_key ~/test.txt ubuntu@100.127.79.18:/mnt/data/
+scp -i ~/.ssh/oracle_key ~/test.txt <LINUX_USER>@<ORACLE_TAILSCALE_IP>:/mnt/data/
 \`\`\`
 
 ### 5. 오브젝트 스토리지(20GB) rclone 이중 백업

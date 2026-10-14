@@ -59,7 +59,7 @@ Action 서버가 작업을 수행(`execute_callback`)하는 동안 클라이언�
 
 ## 3. 패키지 파일 구성
 
-신규 패키지 `/home/cjinw/learning/portfolio/src/service_action_py/`의 파일별 역할입니다:
+신규 패키지 `src/service_action_py/`의 파일별 역할입니다:
 
 | 파일 경로 | 역할 및 핵심 기능 |
 | :--- | :--- |
@@ -77,14 +77,14 @@ Action 서버가 작업을 수행(`execute_callback`)하는 동안 클라이언�
 > 새 터미널 창을 열 때마다 반드시 아래 두 단계의 환경 소싱을 수행해야 합니다:
 > ```bash
 > source /opt/ros/humble/setup.bash
-> cd /home/cjinw/learning/portfolio
+> cd 02_ros2_core_curriculum
 > source install/setup.bash
 > ```
 
 ### 워크스페이스 빌드
 ```bash
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 
 colcon build --packages-select service_action_py
 source install/setup.bash
@@ -98,7 +98,7 @@ source install/setup.bash
 ```bash
 # 터미널 1
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run service_action_py add_two_ints_server
@@ -112,7 +112,7 @@ ros2 run service_action_py add_two_ints_server
 ```bash
 # 터미널 2 (새 창)
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run service_action_py add_two_ints_client -- 10 20
@@ -170,7 +170,7 @@ ros2 run service_action_py add_two_ints_client -- 5 7
 ```bash
 # 터미널 1
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run service_action_py fibonacci_action_server
@@ -184,7 +184,7 @@ ros2 run service_action_py fibonacci_action_server
 ```bash
 # 터미널 2 (새 창)
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run service_action_py fibonacci_action_client -- 10

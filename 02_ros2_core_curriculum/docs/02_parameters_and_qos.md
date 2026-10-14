@@ -40,7 +40,7 @@ Phase 1에서 우리는 하드코딩된 주기(`1.0초`)로 동작하는 기본�
 
 ### 3. 최소 실행 예제: `DynamicTelemetryPublisher`
 
-이 노드는 `/home/cjinw/learning/portfolio/src/param_qos_py/param_qos_py/dynamic_telemetry_publisher.py`에 완전한 실행 파일로 구현되어 있습니다.
+이 노드는 `src/param_qos_py/param_qos_py/dynamic_telemetry_publisher.py`에 완전한 실행 파일로 구현되어 있습니다.
 
 #### 코드 핵심 구조
 ```python
@@ -85,7 +85,7 @@ def _on_parameter_event_callback(self, event: ParameterEvent) -> None:
 > **새 터미널 환경 설정 안내 (필수):**
 > 실습을 위해 새로운 터미널 창을 열 때마다 반드시 아래 두 단계의 환경 소싱을 수행해야 합니다 (`~/.bashrc`를 변경하지 않는 격리 환경 기준):
 > 1. **ROS 2 기본 환경 소싱:** `source /opt/ros/humble/setup.bash` (`ros2` CLI 기본 바이너리 및 핵심 라이브러리 활성화)
-> 2. **워크스페이스 오버레이 소싱:** 워크스페이스 루트(`/home/cjinw/learning/portfolio`)로 이동 후 `source install/setup.bash` (`param_qos_py` 등 우리가 직접 빌드한 사용자 패키지 로딩)
+> 2. **워크스페이스 오버레이 소싱:** 도메인 루트(`02_ros2_core_curriculum`)로 이동 후 `source install/setup.bash` (`param_qos_py` 등 우리가 직접 빌드한 사용자 패키지 로딩)
 >
 > *(참고: `ros2 param set`이나 `ros2 topic info` 같은 범용 CLI 도구만 실행할 때는 기본 환경 소싱만으로도 동작하지만, 노드 실행(`ros2 run`)을 포함한 일관된 실습을 위해 새 터미널마다 두 환경을 모두 소싱하는 것을 권장합니다.)*
 
@@ -93,7 +93,7 @@ def _on_parameter_event_callback(self, event: ParameterEvent) -> None:
 ```bash
 # 터미널 1: 환경 소싱 및 기본 노드 실행
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run param_qos_py dynamic_telemetry_publisher
@@ -143,8 +143,8 @@ Setting parameter failed: publish_rate_hz must be in (0.0, 50.0] Hz, got -10.0
 
 #### 4.4 YAML 파일을 통한 실행 시점 설정 주입
 ```bash
-# 주의: 상대 경로(src/...)를 사용하므로 반드시 워크스페이스 루트(/home/cjinw/learning/portfolio)에서 실행해야 합니다.
-cd /home/cjinw/learning/portfolio
+# 주의: 상대 경로(src/...)를 사용하므로 반드시 도메인 루트(02_ros2_core_curriculum)에서 실행해야 합니다.
+cd 02_ros2_core_curriculum
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 
@@ -191,14 +191,14 @@ DDS 엔드포인트 연결 규칙: **$\text{Offered (Publisher)} \ge \text{Reque
 ```bash
 # 터미널 1: 환경 소싱 후 SensorDataQoS 퍼블리셔 실행 (10Hz IMU 스트리밍)
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run param_qos_py qos_sensor_streamer
 
 # 터미널 2 (새 창): 환경 소싱 후 기본 Best Effort 구독자 실행
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run param_qos_py qos_sensor_listener
@@ -248,7 +248,7 @@ Subscription count: 1
 ```bash
 # 터미널 1: 환경 소싱 후 Transient Local 설정 퍼블리셔 실행
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run param_qos_py qos_config_publisher
@@ -265,7 +265,7 @@ ros2 run param_qos_py qos_config_publisher
 ```bash
 # 터미널 2 (새 창): 환경 소싱 후 퍼블리셔가 이미 발행을 마친 상태에서 뒤늦게 구독자 실행
 source /opt/ros/humble/setup.bash
-cd /home/cjinw/learning/portfolio
+cd 02_ros2_core_curriculum
 source install/setup.bash
 
 ros2 run param_qos_py qos_config_listener

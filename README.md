@@ -138,7 +138,7 @@ ros2/ (향후 robotics-engineering-portfolio 제안)
 source /opt/ros/humble/setup.bash
 
 # 2. 통합 학습 패키지 빌드 (02_ros2_core_curriculum)
-cd /home/cjinw/learning/ros2
+cd ~/learning/ros2  # 또는 클론한 저장소 루트
 colcon build --symlink-install --packages-select \
   core_pubsub_py \
   param_qos_py \

@@ -14,7 +14,7 @@ set -e
  
 # ---- 설정 값 ----
 SSH_KEY="$HOME/.ssh/oracle_key"
-ORACLE_HOST="100.127.79.18"                 # Tailscale 사설 IP
+ORACLE_HOST="<ORACLE_TAILSCALE_IP>"                 # Tailscale 사설 IP
 REMOTE_DATA_PATH="/mnt/data/limo-results/"   # 블록 볼륨 쪽 백업 경로
  
 LOCAL_RESULTS_DIR="$HOME/limo_ws/results/"           # 전체 결과물

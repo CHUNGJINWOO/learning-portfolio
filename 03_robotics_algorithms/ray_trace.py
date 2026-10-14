@@ -1,3 +1,13 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 CHUNGJINWOO
+"""
+2D Occupancy Grid Ray Tracing Simulation.
+
+This module implements 2D ray casting and grid occupancy calculation
+based on Bresenham's line algorithm (Jack E. Bresenham, 1962).
+The algorithm casts virtual laser beams across a 2D grid map to compute
+traversed (free) cells and endpoint (occupied) cells.
+"""
 
 import math
 

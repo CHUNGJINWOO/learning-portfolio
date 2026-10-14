@@ -222,3 +222,37 @@ python3 03_robotics_algorithms/ray_trace.py
 ### 🚗 외부 연계 프로젝트
 - [Capstone1_limo 실전 자율주행 프로젝트](https://github.com/CHUNGJINWOO/Capstone1_limo)
 - [Guidebook AI 개발 표준 가이드북](https://github.com/CHUNGJINWOO/guidebook)
+
+---
+
+## 📄 License & Attribution
+
+### 1. Original Portfolio Works
+루트 **[Apache License 2.0](LICENSE)**은 본 저장소에서 원작자(CHUNGJINWOO)가 직접 기획·작성하여 적법하게 라이선스를 부여할 권리를 보유한 자체 저작물에 한하여 적용됩니다.
+
+- **적용 대상 범위 (원작자 기여물):**
+  - `01_python_and_oop/` 및 `learning/notebooks/` (OOP 및 신호 모델링 학습 가이드 문서 및 실습 노트북)
+  - `02_ros2_core_curriculum/` (ROS 2 핵심 5대 모듈 패키지 및 기술 문서, 기존 `02_ros2_core_curriculum/LICENSE` 고지 보존)
+  - `03_robotics_algorithms/` (2D 레이 트레이싱 및 점유격자 분석 스크립트 도구)
+  - `04_computer_vision/` (디지털 영상처리 파이프라인 아키텍처 문서)
+  - `05_embedded_systems/` (Wokwi 아두이노 마이크로컨트롤러 시뮬레이션 회로 및 소스; 교재 참조 실습물)
+  - `06_cloud_and_devops/` (클라우드 인프라 구축 문서 및 배포 자동화 스크립트)
+  - `src/remote_teleop_node.py` 및 `learning/my_package_rclcpy/` (원격 텔레옵 노드 및 튜토리얼 실습 패키지)
+
+### 2. Third-Party Software & Models
+`src/limo_ros2/` 및 외부 프로젝트 리소스는 루트 Apache-2.0 라이선스의 적용 대상에서 명시적으로 제외되며, 해당 컴포넌트의 원저작자가 배포한 개별 라이선스 및 고지를 따릅니다:
+
+- **AgileX Robotics LIMO ROS 2 SDK (`src/limo_ros2/`):**
+  - 원저작자: AgileX Robotics & TU Braunschweig (Institut für Intermodale Transport- und Logistiksysteme)
+  - 원본 저장소: [agilexrobotics/limo_ros2](https://github.com/agilexrobotics/limo_ros2)
+  - 구성 패키지 및 리소스별 권리 현황:
+    - `limo_base`: C++ 소스 코드 및 헤더 파일 상단에 AgileX Robotics의 **BSD 3-Clause License** 고지가 명시되어 있으며, `package.xml`에는 `Apache License 2.0`으로 표기되어 상호 불일치합니다.
+    - `limo_car`: `package.xml`에는 `Apache-2.0`으로 선언되어 있으나, 주요 런치 및 URDF/Xacro 파일에는 TU Braunschweig (Zhui Li)의 저작자 고지가 기재되어 있습니다.
+    - `limo_msgs`: `package.xml`에 `BSD`로 선언되어 있습니다.
+    - `limo_description`: `package.xml`에 `<license>TODO: License declaration</license>` 상태로 남아 있어 라이선스가 공식 확정되지 않은 상태(미확인)입니다.
+    - 3D 메시 모델(`limo_base.dae`, `limo_wheel.dae`), 텍스처, URDF/Xacro 리소스: AgileX Robotics의 공식 시뮬레이션 모델 자산이나, 개별 이용 조건 및 라이선스 범위는 명시적으로 확정되지 않은 상태(추가 확인 필요)입니다.
+
+### 3. Academic Integrity & Coursework Separation
+- **대학 교과목 원본 격리:** 정규 교과목(`로봇비젼시스템`, `자율주행시스템`) 실습 원본 파일은 학업 아카이브인 `school/2026-2/`에 독립 보존되어 있으며 본 공개 저장소에 무단 복제되지 않았습니다.
+- **캡스톤 프로젝트 분리:** 팀 캡스톤 프로젝트는 독립 저장소인 [`Capstone1_limo`](https://github.com/CHUNGJINWOO/Capstone1_limo)에서 관리되며, 팀원의 고유 산출물은 본 포트폴리오에 반입되지 않았습니다. 별도의 학교 과제 및 Capstone 저장소 산출물은 본 저장소의 루트 라이선스에 자동으로 포함되지 않습니다.
+- **수학 알고리즘 출처:** `03_robotics_algorithms/ray_trace.py`의 격자 빔 투영 연산은 Jack E. Bresenham의 라인 알고리즘(1962)을 기반으로 구현되었습니다.

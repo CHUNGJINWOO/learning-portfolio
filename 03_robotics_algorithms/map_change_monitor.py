@@ -1,3 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 CHUNGJINWOO
+"""
+ROS 2 OccupancyGrid Map Change Monitor Node.
+
+Subscribes to '/map' (nav_msgs/OccupancyGrid) and tracks map changes by
+computing SHA-256 hashes of the grid data buffer to detect update cycles.
+"""
+
 import hashlib
 
 import rclpy

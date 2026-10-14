@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>ROS 2 Humble Python learning examples: nodes, topics, and services.</description>
   <maintainer email="cjinw@todo.todo">cjinw</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
   <depend>std_msgs</depend>

@@ -1,3 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 CHUNGJINWOO
+"""
+ROS 2 OccupancyGrid Map Inspector Node.
+
+Subscribes to '/map' (nav_msgs/OccupancyGrid) and transforms Euclidean world
+coordinates into 2D grid cell indices, inspecting local occupancy statistics.
+"""
+
 import math
 
 import rclpy

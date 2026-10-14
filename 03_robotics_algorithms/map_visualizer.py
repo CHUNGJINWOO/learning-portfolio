@@ -1,3 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 CHUNGJINWOO
+"""
+ROS 2 OccupancyGrid Map Visualizer Node.
+
+Subscribes to '/map' (nav_msgs/OccupancyGrid) and renders real-time 2D grid
+visualizations using Matplotlib interactive plotting mode (plt.ion()).
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt

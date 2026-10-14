@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 CHUNGJINWOO
 """
 @file: remote_teleop_node.py
 @brief: 로컬 환경(Gram)에서 클라우드(OCI)의 시뮬레이션 로봇을 제어하기 위한 원격 조향 퍼블리셔 노드

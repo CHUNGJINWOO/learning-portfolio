@@ -16,7 +16,7 @@ setup(
     maintainer='cjinw',
     maintainer_email='cjinw@todo.todo',
     description='ROS 2 Humble Python learning examples: nodes, topics, and services.',
-    license='TODO: License declaration',
+    license='Apache-2.0',
     extras_require={
         'test': [
             'pytest',

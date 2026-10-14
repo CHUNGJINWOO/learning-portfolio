@@ -1,15 +1,53 @@
-# ROS2 빌드 및 실행 임시 폴더
+# ROS 2 build & runtime artifacts
 build/
 install/
 log/
+test_results/
+frames_*.pdf
+frames_*.gv
+*.bag
+*.db3
+rosbag2_*/
 
-# 파이썬 캐시 파일
+# Python cache and compiled files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
 
-# 디스커버리 서버 및 각종 실행 임시 로그 파일 제외
-*.log
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
 
-# rclone.conf, Secret Key
+# Sensitive environment, token, credentials and key files
+.env*
+*.env
+*.pem
+*.key
+id_rsa*
+id_ed25519*
 rclone.conf
 *.conf
+*credential*
+*token*
+
+# Log files
+*.log
+
+# IDE and editor temporary files
+.vscode/
+.idea/
+*.swp
+*~
+~$*.docx
+~$*.pptx
+*.tmp
+
+# Operating system files
+.DS_Store
+Thumbs.db

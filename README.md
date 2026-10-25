@@ -1,6 +1,6 @@
 # 🤖 로보틱스 소프트웨어 엔지니어링 학습 및 개발 포트폴리오
 > **Robotics Software Engineering Portfolio**  
-> *(현재 저장소: `CHUNGJINWOO/ros2` / 차기 통합 명칭 후보: `robotics-engineering-portfolio`)*
+> *(GitHub: [`CHUNGJINWOO/learning-portfolio`](https://github.com/CHUNGJINWOO/learning-portfolio) — formerly `CHUNGJINWOO/ros2`)*
 
 본 저장소는 **ROS 2 Humble 기반의 분산 로보틱스 시스템**, **Python 객체지향(OOP) 소프트웨어 설계**, **공간 기하 및 매핑 알고리즘**, **컴퓨터 비전 전처리**, **마이크로컨트롤러 임베디드 제어**, 그리고 **클라우드(OCI) 기반 원격 개발 및 고신뢰성 보안 인프라**를 아우르는 통합 로보틱스 엔지니어링 학습 포트폴리오입니다.
 
@@ -28,7 +28,7 @@
 본 저장소는 로보틱스 개발 역량을 체계적으로 입증할 수 있도록 6대 전문 도메인으로 구조화되어 있습니다:
 
 ```text
-ros2/ (향후 robotics-engineering-portfolio 제안)
+learning-portfolio/ (로컬 작업 경로: ~/learning/ros2)
 ├── 01_python_and_oop/             # [도메인 1] Python 객체지향(OOP) 및 수치 신호 모델링
 │   └── notebooks/                 # NumPy 사인파 합성 및 클래스 상속 실습 노트북
 ├── 02_ros2_core_curriculum/       # [도메인 2] ROS 2 핵심 5대 Phase 패키지 및 심층 개념 가이드

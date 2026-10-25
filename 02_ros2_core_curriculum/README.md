@@ -38,7 +38,6 @@ portfolio/
 ├── exercises/                                 # 복습 및 실습 과제 공간
 │   ├── my_package_rclcpy/                     # [입문 실습] Turtlesim 기반 첫 ROS 2 Python 패키지
 │   └── README.md                              # 복습 질문 및 과제 운영 안내
-├── inbox/                                     # 신규 학습 자료 대기소
 ├── notebooks/                                 # 대화형 주피터 실습 노트북 (Turtlesim 3종)
 │   ├── 03_topic_publisher_turtlesim.ipynb     # [대화형] Topic Publisher 실습
 │   ├── 04_topic_subscriber_turtlesim.ipynb    # [대화형] Topic Subscriber 실습

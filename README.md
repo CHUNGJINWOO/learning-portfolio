@@ -19,6 +19,7 @@
 3. [LIMO 로봇 플랫폼 & 시뮬레이션 소스 (`src/`)](#3-limo-로봇-플랫폼--시뮬레이션-소스-src)
 4. [빌드 및 검증 가이드 (Build & Run Guide)](#4-빌드-및-검증-가이드-build--run-guide)
 5. [현재 상태 및 검증 범위 (Verification Scope)](#5-현재-상태-및-검증-범위-verification-scope)
+   - [5.1 학습 자료 관리 및 3영역 독립 검증 원칙](#51-학습-자료-관리-및-3영역-독립-검증-원칙)
 6. [문서 및 리소스 색인 (Documentation Index)](#6-문서-및-리소스-색인-documentation-index)
 
 ---
@@ -29,6 +30,10 @@
 
 ```text
 learning-portfolio/ (로컬 작업 경로: ~/learning/learning-portfolio)
+├── inbox/                         # 신규 학습 자료 수집 및 임시 대기소 (단일 진입점)
+├── docs/                          # 학습 관리 워크플로우 및 표준 템플릿
+│   ├── LEARNING_WORKFLOW.md       # 10단계 자료 분석·분류·통합 절차
+│   └── LEARNING_TEMPLATE.md       # 3영역 독립 검증 마크다운 표준 템플릿
 ├── 01_python_and_oop/             # [도메인 1] Python 객체지향(OOP) 및 수치 신호 모델링
 │   └── notebooks/                 # NumPy 사인파 합성 및 클래스 상속 실습 노트북
 ├── 02_ros2_core_curriculum/       # [도메인 2] ROS 2 핵심 5대 Phase 패키지 및 심층 개념 가이드
@@ -196,11 +201,32 @@ python3 03_robotics_algorithms/ray_trace.py
 | **LIMO Application**| LIMO ROS 2 소스 | ⚠️ 모델 보존/정리 | DAE 시각화 모델 보존, 미참조 STL(89.6MB) 정리 완료 |
 | **LIMO Application**| 실기기 주행 및 SLAM | 🔄 캡스톤 프로젝트 연계 | `Capstone1_limo` 저장소에서 LIMO Pro 실차 검증 진행 중 |
 
+### 5.1 학습 자료 관리 및 3영역 독립 검증 원칙
+
+본 저장소는 지속적인 학습 확장성과 지식 검증의 진실성을 보장하기 위해 다음과 같은 관리 체계를 운영합니다:
+
+1. **신규 학습 자료 단일 진입점 ([`inbox/`](inbox/README.md))**:
+   - 새로 학습한 원시 자료(코드, 필기, 터미널 로그 등)는 루트 `inbox/`에 우선 배치합니다.
+   - **원본 불변 원칙**: 사용자가 변경 계획을 명시적으로 승인하기 전까지 임의 수정·이동·삭제하지 않습니다.
+   - **미분류 자료 보존**: 승인되지 않거나 보류된 자료는 `inbox/`에 원형 그대로 안전하게 유지합니다.
+2. **10단계 학습 관리 워크플로우**:
+   - 신규 자료의 분석, 중복 대조, 분리, 제안, 승인, 통합 및 검증 절차는 [`docs/LEARNING_WORKFLOW.md`](docs/LEARNING_WORKFLOW.md)를 준용합니다.
+3. **표준 학습 문서 템플릿**:
+   - 도메인 문서 작성 시 [`docs/LEARNING_TEMPLATE.md`](docs/LEARNING_TEMPLATE.md)의 3영역 독립 기록 모델을 표준으로 사용합니다.
+4. **3개 독립 영역 검증 상태 관리**:
+   - **A. 학습 기록**: 개념 학습 여부, 코드 분석 여부, 직접 구현 여부, 복습 및 이해도 확인 여부
+   - **B. 기술 검증**: 구문 검사, 빌드, 실행, 시뮬레이션, 실제 하드웨어 검증
+   - **C. 확인 필요 사항**: 미검증 항목, 검증 불가 사유, 재검증 필요 조건, 출처 및 근거
+   - **원칙**: 확인되지 않은 항목은 결코 `PASS` 또는 완료로 표기하지 않으며, 기존 문서의 `[미검증]`, `[교재 코드 분석 완료]` 등 원래 표시는 보존합니다.
+
 ---
 
 ## 6. 문서 및 리소스 색인 (Documentation Index)
 
 ### 📖 학습 및 커리큘럼
+- [신규 학습 자료 수집소 (Root Inbox)](inbox/README.md)
+- [학습 자료 수집 및 관리 워크플로우 가이드](docs/LEARNING_WORKFLOW.md)
+- [학습 문서 표준 템플릿](docs/LEARNING_TEMPLATE.md)
 - [01. Python & OOP 학습 가이드](01_python_and_oop/README.md)
 - [02. ROS 2 핵심 커리큘럼 대시보드](02_ros2_core_curriculum/README.md)
   - [Phase 1: OOP & Node 수명주기](02_ros2_core_curriculum/docs/01_python_oop_and_ros2_node.md)

@@ -6,6 +6,17 @@
 
 ---
 
+## 🔗 연관 학습 자료 및 발전 경로 (Pedagogical Links)
+
+본 패키지는 도메인 02 커리큘럼 내에서 다음과 같은 체계적인 3단계 학습 경로로 연결되어 있습니다:
+
+- **1단계 (선행 실습):** [`../../notebooks/`](../../notebooks/) — Turtlesim 대화형 주피터 노트북을 통한 기초 토픽 발행/구독 시각적 탐색
+- **2단계 (현재 단계):** **`my_package_rclcpy`** — 단편 스크립트를 클래스 상속(`Node`) 및 진입점(`setup.py`)을 갖춘 독립 ROS 2 패키지로 정형화
+- **3단계 (심화 패키지):** [`../../src/core_pubsub_py/`](../../src/core_pubsub_py/) — 타입 힌트, 정형 로거, 자원 해제 루틴을 갖춘 구조화된 정규 학습 패키지
+- **연계 이론 가이드:** [`../../docs/01_python_oop_and_ros2_node.md`](../../docs/01_python_oop_and_ros2_node.md) — Python OOP 설계와 Node 수명주기 이론 해설
+
+---
+
 ## 1. 패키지 개요
 
 - **패키지 이름**: `my_package_rclcpy`

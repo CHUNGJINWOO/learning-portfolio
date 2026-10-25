@@ -14,16 +14,23 @@
 
 ---
 
-## 🔄 학습 노트북과 정규 패키지(`my_package_rclcpy`)의 유기적 관계
+## 🔄 학습 단계별 발전 경로 (Pedagogical Progression)
 
-대화형 환경에서 검증된 단편 코드는 [`../exercises/my_package_rclcpy/`](../exercises/my_package_rclcpy/)를 통해 정식 ROS 2 패키지로 승격되었습니다:
+본 노트북의 대화형 실습 코드는 다음과 같은 체계적인 3단계 학습 경로로 연결되어 있습니다:
 
-1. **대화형 프로토타이핑 $\rightarrow$ 표준 패키지화:**
-   - `03_topic_publisher_turtlesim.ipynb` 및 `04_topic_subscriber_turtlesim.ipynb`의 단편적인 발행/구독 코드는 `my_package_rclcpy`의 `talker.py`와 `listener.py`로 정형화되어 예외 처리(`KeyboardInterrupt`), 로거(`get_logger().info()`), 정상 종료 라이프사이클을 갖춘 패키지 노드로 발전했습니다.
-2. **서비스 호출 $\rightarrow$ 서버/클라이언트 양방향 구현:**
-   - `05_service_client_turtlesim.ipynb`에서 클라이언트 측면만 다루었던 서비스 통신을 `my_package_rclcpy`에서는 `add_two_ints_server.py`와 `add_two_ints_client.py`를 통해 서버와 클라이언트 양방향 전체 메커니즘으로 완성했습니다.
-3. **실전 응용 (LIMO 및 OCI 연계):**
-   - 토픽 발행 실습에서 익힌 `Twist` 메시지 구조는 [`../../src/remote_teleop_node.py`](../../src/remote_teleop_node.py)로 확장되어 실제 OCI 클라우드 시뮬레이션 로봇을 원격 조향하는 실전 코드로 활용됩니다.
+1. **1단계: Turtlesim Notebook ([본 디렉터리](README.md))**:
+   - [`03_topic_publisher_turtlesim.ipynb`](03_topic_publisher_turtlesim.ipynb) / [`04_topic_subscriber_turtlesim.ipynb`](04_topic_subscriber_turtlesim.ipynb)
+   - 대화형 셀 환경에서 Turtlesim GUI를 통한 즉각적인 토픽 발행 및 구독 실습.
+2. **2단계: 기본 OOP 및 패키지 구조 학습 ([`../exercises/my_package_rclcpy/`](../exercises/my_package_rclcpy/))**:
+   - 단편 스크립트를 `class Talker(Node)`, `class Listener(Node)` 클래스 상속 구조로 캡슐화하고, `setup.py` 진입점을 갖춘 기본 ROS 2 패키지로 정형화.
+   - 서비스 통신 실습([`05_service_client_turtlesim.ipynb`](05_service_client_turtlesim.ipynb)) 또한 `add_two_ints_server.py`와 `add_two_ints_client.py`를 통해 양방향으로 완성.
+3. **3단계: 구조화된 정규 학습 패키지 ([`../src/core_pubsub_py/`](../src/core_pubsub_py/))**:
+   - 명시적 타입 힌트, 정형 로깅, `try-except-finally` 결정론적 자원 해제 루틴을 갖춘 표준 ROS 2 노드 구현.
+   - 연계 이론 가이드: [`../docs/01_python_oop_and_ros2_node.md`](../docs/01_python_oop_and_ros2_node.md)
+
+> 💡 **학습 로드맵 안내**:
+> 대화형 노트북을 통해 토픽 메시지 구조를 시각적으로 확인한 후, [`../exercises/my_package_rclcpy/`](../exercises/my_package_rclcpy/)에서 독립 패키지 빌드 실습을 진행하고, [`../src/core_pubsub_py/`](../src/core_pubsub_py/)를 통해 정규 패키지 구조를 확인하는 순서를 권장합니다.
+- 토픽 발행 실습에서 익힌 `Twist` 메시지 구조는 [`../../src/remote_teleop_node.py`](../../src/remote_teleop_node.py)로 확장되어 실제 OCI 클라우드 시뮬레이션 로봇을 원격 조향하는 실전 코드로 활용됩니다.
 
 ---
 

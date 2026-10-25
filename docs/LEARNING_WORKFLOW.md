@@ -2,7 +2,7 @@
 
 본 문서는 사용자가 새로 학습한 원시 자료를 `inbox/`에 투입했을 때, AI 에이전트와 함께 이를 검토·분류하고 기존 6대 도메인으로 안전하게 통합하는 **10단계 표준 운영 절차**를 정의합니다.
 
-공통 개발 원칙 및 Agent 기본 행동 지침은 [Guidebook AI Agent Guide](https://github.com/CHUNGJINWOO/guidebook/blob/main/docs/ai/AI_AGENT_GUIDE.md)를 준용하며, 본 문서는 학습 포트폴리오의 구체적 지식 편입 절차에 집중합니다.
+공통 개발 원칙 및 Agent 기본 행동 지침은 Guidebook의 공통 운영 수칙([AGENTS.md](https://github.com/CHUNGJINWOO/guidebook/blob/main/AGENTS.md) 및 [AI Agent Guide](https://github.com/CHUNGJINWOO/guidebook/blob/main/docs/ai/AI_AGENT_GUIDE.md))을 준용하며, 본 문서는 학습 포트폴리오의 구체적 지식 편입 절차에 집중합니다.
 
 ---
 

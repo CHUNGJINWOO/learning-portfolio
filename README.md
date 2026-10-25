@@ -252,7 +252,7 @@ python3 03_robotics_algorithms/ray_trace.py
 
 ### 🚗 외부 연계 프로젝트
 - [Capstone1_limo 실전 자율주행 프로젝트](https://github.com/CHUNGJINWOO/Capstone1_limo)
-- [Guidebook AI 개발 표준 가이드북](https://github.com/CHUNGJINWOO/guidebook)
+- [Guidebook AI 개발 표준 가이드북](https://github.com/CHUNGJINWOO/guidebook) (공통 에이전트 운영 수칙 SSOT: [AGENTS.md](https://github.com/CHUNGJINWOO/guidebook/blob/main/AGENTS.md) · [AI Agent Guide](https://github.com/CHUNGJINWOO/guidebook/blob/main/docs/ai/AI_AGENT_GUIDE.md))
 
 ---
 

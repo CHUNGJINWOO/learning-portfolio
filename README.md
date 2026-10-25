@@ -28,7 +28,7 @@
 본 저장소는 로보틱스 개발 역량을 체계적으로 입증할 수 있도록 6대 전문 도메인으로 구조화되어 있습니다:
 
 ```text
-learning-portfolio/ (로컬 작업 경로: ~/learning/ros2)
+learning-portfolio/ (로컬 작업 경로: ~/learning/learning-portfolio)
 ├── 01_python_and_oop/             # [도메인 1] Python 객체지향(OOP) 및 수치 신호 모델링
 │   └── notebooks/                 # NumPy 사인파 합성 및 클래스 상속 실습 노트북
 ├── 02_ros2_core_curriculum/       # [도메인 2] ROS 2 핵심 5대 Phase 패키지 및 심층 개념 가이드
@@ -141,7 +141,7 @@ learning-portfolio/ (로컬 작업 경로: ~/learning/ros2)
 source /opt/ros/humble/setup.bash
 
 # 2. 통합 학습 패키지 빌드 (02_ros2_core_curriculum)
-cd ~/learning/ros2  # 또는 클론한 저장소 루트
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 colcon build --symlink-install --packages-select \
   core_pubsub_py \
   param_qos_py \

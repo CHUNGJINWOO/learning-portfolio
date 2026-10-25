@@ -34,7 +34,7 @@
 
 ## 3. 패키지 빌드 방법
 
-현재 패키지 소스 코드는 Git 저장소인 `~/ros2/learning/my_package_rclcpy`에 위치하며, 빌드 작업 공간(Workspace)은 `~/ros2_ws`로 분리되어 있습니다. 작업 환경에 맞춰 아래 세 가지 방법 중 하나를 선택하여 빌드할 수 있습니다.
+현재 패키지 소스 코드는 Git 저장소인 `~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy`에 위치하며, 빌드 작업 공간(Workspace)은 `~/ros2_ws`로 분리되어 있습니다. 작업 환경에 맞춰 아래 세 가지 방법 중 하나를 선택하여 빌드할 수 있습니다.
 
 ### 방법 1: 외부 경로 직접 지정 빌드 (`--paths` 옵션 활용 - 권장)
 `colcon`의 `--paths` 옵션을 사용하면 워크스페이스 디렉터리 구조를 변경하지 않고도 외부 경로의 패키지를 직접 지정하여 빌드할 수 있습니다 (`colcon-core 0.21.3+`에서 공식 지원).
@@ -47,7 +47,7 @@ source /opt/ros/humble/setup.bash
 cd ~/ros2_ws
 
 # 3. 외부 경로의 패키지를 직접 지정하여 빌드
-colcon build --symlink-install --paths ~/ros2/learning/my_package_rclcpy
+colcon build --symlink-install --paths ~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy
 
 # 4. 빌드 결과물 환경 변수 반영
 source install/setup.bash
@@ -58,8 +58,8 @@ source install/setup.bash
 `~/ros2_ws/src/` 아래에 저장소의 패키지를 가리키는 심볼릭 링크를 생성하여 표준 워크스페이스 패키지처럼 빌드하는 방법입니다.
 
 ```bash
-# 심볼릭 링크 생성 (원본: ~/ros2/learning/my_package_rclcpy)
-ln -s ~/ros2/learning/my_package_rclcpy ~/ros2_ws/src/my_package_rclcpy
+# 심볼릭 링크 생성 (원본: ~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy)
+ln -s ~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy ~/ros2_ws/src/my_package_rclcpy
 
 # 워크스페이스에서 패키지 선택 빌드
 cd ~/ros2_ws
@@ -69,10 +69,10 @@ source install/setup.bash
 - **장점 및 특징**: 저장소의 원본 소스를 실시간으로 참조하므로 `~/ros2`에서 소스를 수정하면 워크스페이스에도 즉시 반영되어 단일 원본(Single Source of Truth)이 유지됩니다.
 
 ### 방법 3: 패키지 복사(Copy) 후 빌드
-`~/ros2/learning/my_package_rclcpy`를 `~/ros2_ws/src/` 디렉터리로 직접 복사하여 빌드하는 방법입니다.
+`~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy`를 `~/ros2_ws/src/` 디렉터리로 직접 복사하여 빌드하는 방법입니다.
 
 ```bash
-cp -r ~/ros2/learning/my_package_rclcpy ~/ros2_ws/src/
+cp -r ~/ros2/02_ros2_core_curriculum/exercises/my_package_rclcpy ~/ros2_ws/src/
 cd ~/ros2_ws
 colcon build --symlink-install --packages-select my_package_rclcpy
 source install/setup.bash

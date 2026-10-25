@@ -33,8 +33,24 @@ portfolio/
 │   ├── 02_parameters_and_qos.md               # [Phase 2] 동적 매개변수 및 QoS 심층 실습
 │   ├── 03_services_and_actions.md             # [Phase 3] Services 및 Actions 통신 패러다임
 │   ├── 04_launch_and_system_orchestration.md  # [Phase 4] Launch 시스템 및 오케스트레이션
-│   └── 05_tf2_coordinate_transforms.md        # [Phase 5] TF2 공간 좌표 변환 및 진단
-└── src/                                       # 독립 실행 패키지 공간 (총 5개)
+│   ├── 05_tf2_coordinate_transforms.md        # [Phase 5] TF2 공간 좌표 변환 및 진단
+│   └── SYSTEM_GUIDE.md                        # 통합 실행 및 검증 가이드
+├── exercises/                                 # 복습 및 실습 과제 공간
+│   ├── my_package_rclcpy/                     # [입문 실습] Turtlesim 기반 첫 ROS 2 Python 패키지
+│   └── README.md                              # 복습 질문 및 과제 운영 안내
+├── inbox/                                     # 신규 학습 자료 대기소
+├── notebooks/                                 # 대화형 주피터 실습 노트북 (Turtlesim 3종)
+│   ├── 03_topic_publisher_turtlesim.ipynb     # [대화형] Topic Publisher 실습
+│   ├── 04_topic_subscriber_turtlesim.ipynb    # [대화형] Topic Subscriber 실습
+│   ├── 05_service_client_turtlesim.ipynb      # [대화형] Service Client 실습
+│   └── README.md                              # 대화형 실습 및 주의사항 안내
+├── notes/                                     # 심층 개념 및 이론 학습 노트 (교재 분석 4종)
+│   ├── 01_ros2_core_and_interfaces.md         # [이론] Topic/Service/Action 통신 패턴
+│   ├── 02_limo_application_programming.md     # [이론] LIMO 복합 센서 제어 파이프라인
+│   ├── 03_tf2_and_pose_control.md             # [이론] TF2 수학 및 move_to_pose 제어
+│   ├── 04_local_state_estimation.md           # [이론] 지역 위치 추정 및 센서 융합
+│   └── README.md                              # 이론 노트 색인 및 검증 범위
+└── src/                                       # 정규 독립 패키지 공간 (총 5개)
     ├── core_pubsub_py/                        # [Phase 1] 최소 Pub/Sub 패키지 (ament_python)
     │   ├── package.xml
     │   ├── setup.py

@@ -18,11 +18,11 @@
 
 ## 🗂️ 학습 노트북 안내 (Canonical Notebooks)
 
-현재 본 포트폴리오의 대화형 실습 주피터 노트북은 기존 경로 무결성 유지를 위해 [`learning/notebooks/`](../learning/notebooks/)에 배치되어 있습니다:
+본 포트폴리오의 대화형 실습 주피터 노트북은 [`notebooks/`](notebooks/)에 배치되어 있습니다:
 
-- **[01_sin_modeling.ipynb](../learning/notebooks/01_sin_modeling.ipynb)**:
+- **[01_sin_modeling.ipynb](notebooks/01_sin_modeling.ipynb)**:
   - NumPy, Matplotlib을 활용한 사인파 신호 합성 및 샘플링 분석
-- **[02_python_oop_class.ipynb](../learning/notebooks/02_python_oop_class.ipynb)**:
+- **[02_python_oop_class.ipynb](notebooks/02_python_oop_class.ipynb)**:
   - 객체지향 클래스 정의, 상속, 메서드 오버라이딩, `super()` 호출 및 ROS 2 `Node` 클래스 상속 실습
 
 ---

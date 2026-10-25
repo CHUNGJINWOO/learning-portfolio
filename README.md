@@ -30,14 +30,17 @@
 ```text
 ros2/ (향후 robotics-engineering-portfolio 제안)
 ├── 01_python_and_oop/             # [도메인 1] Python 객체지향(OOP) 및 수치 신호 모델링
+│   └── notebooks/                 # NumPy 사인파 합성 및 클래스 상속 실습 노트북
 ├── 02_ros2_core_curriculum/       # [도메인 2] ROS 2 핵심 5대 Phase 패키지 및 심층 개념 가이드
 │   ├── docs/                      # Phase 01~05 개념/설계/트러블슈팅 가이드
+│   ├── exercises/                 # 복습 과제 및 입문 패키지(my_package_rclcpy)
+│   ├── notebooks/                 # Turtlesim 기반 대화형 실습 노트북 3종
+│   ├── notes/                     # WeGo 교재 분석 이론 노트 4종
 │   └── src/                       # 5개 독립 ament_python 정규 ROS 2 패키지
 ├── 03_robotics_algorithms/        # [도메인 3] 브레젠험 레이 트레이싱 및 점유격자 좌표 수학
 ├── 04_computer_vision/            # [도메인 4] NumPy 행렬 조작, OpenCV 필터, 색공간, 에지/이진화
 ├── 05_embedded_systems/           # [도메인 5] Wokwi 기반 아두이노 마이크로컨트롤러 8종 시뮬레이션
 ├── 06_cloud_and_devops/           # [도메인 6] OCI 원격 개발 환경, Fast DDS, Tailscale, Fail2ban
-├── learning/                      # 대화형 주피터 노트북 5종 및 my_package_rclcpy, LIMO 기술문서
 └── src/                           # AgileX LIMO 로봇 ROS 2 패키지 및 원격 제어 노드
 ```
 
@@ -52,7 +55,7 @@ ros2/ (향후 robotics-engineering-portfolio 제안)
   - 클래스 상속과 `super().__init__()`을 통한 ROS 2 Node 클래스 캡슐화
   - 클래스 변수(인스턴스 간 상태 오염)와 인스턴스 변수(`self`, 독립 힙 메모리 할당)의 메모리 격리
   - NumPy 기반 연속 사인파 수식의 이산 시간 수열 샘플링 및 시각화
-- **연계 노트북:** [`learning/notebooks/01_sin_modeling.ipynb`](learning/notebooks/01_sin_modeling.ipynb), [`learning/notebooks/02_python_oop_class.ipynb`](learning/notebooks/02_python_oop_class.ipynb)
+- **연계 노트북:** [`01_python_and_oop/notebooks/01_sin_modeling.ipynb`](01_python_and_oop/notebooks/01_sin_modeling.ipynb), [`01_python_and_oop/notebooks/02_python_oop_class.ipynb`](01_python_and_oop/notebooks/02_python_oop_class.ipynb)
 
 ---
 
@@ -208,7 +211,9 @@ python3 03_robotics_algorithms/ray_trace.py
 - [03. 로보틱스 알고리즘 & 레이 트레이싱](03_robotics_algorithms/README.md)
 - [04. 컴퓨터 비전 파이프라인 가이드](04_computer_vision/README.md)
 - [05. 임베디드 시스템 Wokwi 시뮬레이션](05_embedded_systems/README.md)
-- [기존 Turtlesim 및 LIMO 심화 학습 기록](learning/README.md)
+- [02. ROS 2 핵심 이론 노트 (Topic/Service/Action/LIMO/TF/상태추정)](02_ros2_core_curriculum/notes/README.md)
+- [02. Turtlesim 대화형 실습 노트북](02_ros2_core_curriculum/notebooks/README.md)
+- [02. 입문 실습 패키지 my_package_rclcpy](02_ros2_core_curriculum/exercises/my_package_rclcpy/README.md)
 
 ### ☁️ 인프라 및 운영
 - [06. 클라우드 인프라 & 운영 보안 대시보드](06_cloud_and_devops/README.md)
@@ -231,13 +236,13 @@ python3 03_robotics_algorithms/ray_trace.py
 루트 **[Apache License 2.0](LICENSE)**은 본 저장소에서 원작자(CHUNGJINWOO)가 직접 기획·작성하여 적법하게 라이선스를 부여할 권리를 보유한 자체 저작물에 한하여 적용됩니다.
 
 - **적용 대상 범위 (원작자 기여물):**
-  - `01_python_and_oop/` 및 `learning/notebooks/` (OOP 및 신호 모델링 학습 가이드 문서 및 실습 노트북)
-  - `02_ros2_core_curriculum/` (ROS 2 핵심 5대 모듈 패키지 및 기술 문서, 기존 `02_ros2_core_curriculum/LICENSE` 고지 보존)
+  - `01_python_and_oop/` (OOP 및 신호 모델링 학습 가이드 문서 및 실습 노트북)
+  - `02_ros2_core_curriculum/` (ROS 2 핵심 5대 모듈 패키지, 대화형 노트북, 이론 노트 및 기술 문서, 기존 `02_ros2_core_curriculum/LICENSE` 고지 보존)
   - `03_robotics_algorithms/` (2D 레이 트레이싱 및 점유격자 분석 스크립트 도구)
   - `04_computer_vision/` (디지털 영상처리 파이프라인 아키텍처 문서)
   - `05_embedded_systems/` (Wokwi 아두이노 마이크로컨트롤러 시뮬레이션 회로 및 소스; 교재 참조 실습물)
   - `06_cloud_and_devops/` (클라우드 인프라 구축 문서 및 배포 자동화 스크립트)
-  - `src/remote_teleop_node.py` 및 `learning/my_package_rclcpy/` (원격 텔레옵 노드 및 튜토리얼 실습 패키지)
+  - `src/remote_teleop_node.py` 및 `02_ros2_core_curriculum/exercises/my_package_rclcpy/` (원격 텔레옵 노드 및 튜토리얼 실습 패키지)
 
 ### 2. Third-Party Software & Models
 `src/limo_ros2/` 및 외부 프로젝트 리소스는 루트 Apache-2.0 라이선스의 적용 대상에서 명시적으로 제외되며, 해당 컴포넌트의 원저작자가 배포한 개별 라이선스 및 고지를 따릅니다:

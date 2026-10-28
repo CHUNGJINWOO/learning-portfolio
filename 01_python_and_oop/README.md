@@ -1,38 +1,20 @@
-# 01. Python 객체지향(OOP) 및 신호 모델링 학습
+# 01. Python 객체지향(OOP) 및 신호 모델링
 
-이 디렉터리는 로보틱스 소프트웨어 개발의 선수 필수 역량인 **수학적 신호 모델링**과 **객체지향 프로그래밍(OOP) 클래스 설계 및 수명주기 캡슐화**를 다룹니다.
+이 영역은 NumPy와 Matplotlib으로 사인파를 표현하고, 같은 계산을 클래스와 상속으로 구성하는 두 노트북을 담고 있습니다. 실제 코드와 출력의 의미를 이해하고 다시 설명하는 데 중점을 둡니다.
 
----
+## 학습 노트북 색인
 
-## 📌 학습 개요 및 핵심 목표
+1. [사인파 모델링](notebooks/01_sin_modeling.ipynb): 시간 배열과 사인값을 계산하고, 함수의 진폭·계수·편향 인자를 이용해 그래프를 그립니다.
+2. [Python OOP 클래스](notebooks/02_python_oop_class.ipynb): `DrawSin` 계열 클래스에서 인스턴스 속성, 메서드, 상속, 오버라이딩과 `super().__init__()`을 살펴봅니다.
 
-1. **NumPy 기반 수치 신호 모델링:**
-   - 연속 시간 사인파 수식을 이산 시간 수열로 변환하고 주기, 주파수, 샘플링 레이트, 위상(Phase) 파라미터를 시각화
-   - 이동 로봇의 주기적 궤적(원형, 8자 주행) 제어 입력 생성을 위한 기초 수학 확립
-2. **절차적 스크립트 탈피 및 OOP 클래스 캡슐화:**
-   - 절차적 무한 루프(`while True` + `time.sleep`)의 스레드 블로킹 한계 분석
-   - 클래스 상속(`class MinimalPublisher(Node)`)과 `super().__init__()`을 통한 초기화
-   - 클래스 변수(모든 인스턴스 공유로 인한 오염 위험)와 인스턴스 변수(`self`, 독립 힙 메모리 할당)의 메모리 격리 원리
+[노트북 학습·복습 안내](notebooks/README.md)에는 각 셀의 실행 흐름, 수식, 환경과 복습 질문이 있습니다. 첫 노트북에서 배열과 함수를 살펴본 뒤 두 번째에서 같은 신호 계산이 객체의 속성과 메서드로 어떻게 옮겨지는지 비교하는 순서를 권장합니다.
 
----
+## ROS 2와의 개념 연결
 
-## 🗂️ 학습 노트북 안내 (Canonical Notebooks)
+[ROS 2 Phase 1: Python OOP와 Node 수명주기](../02_ros2_core_curriculum/docs/01_python_oop_and_ros2_node.md)는 상속과 인스턴스 상태를 ROS 2 노드에 적용하는 **별도 확장 학습 자료**입니다. 이 영역의 노트북은 ROS 2 `Node`를 상속하거나 `while True`와 `time.sleep`을 이용한 노드를 구현하지 않습니다.
 
-본 포트폴리오의 대화형 실습 주피터 노트북은 [`notebooks/`](notebooks/)에 배치되어 있습니다:
+## 학습 및 실행 검증 상태
 
-- **[01_sin_modeling.ipynb](notebooks/01_sin_modeling.ipynb)**:
-  - NumPy, Matplotlib을 활용한 사인파 신호 합성 및 샘플링 분석
-- **[02_python_oop_class.ipynb](notebooks/02_python_oop_class.ipynb)**:
-  - 객체지향 클래스 정의, 상속, 메서드 오버라이딩, `super()` 호출 및 ROS 2 `Node` 클래스 상속 실습
-
----
-
-## 🛠️ 실행 환경 및 검증 방법
-
-```bash
-# 가상환경 활성화 (또는 jupyter notebook 실행)
-source ~/venvs/data-analysis/bin/activate
-jupyter notebook
-```
-
-노트북 내부 코드는 Python 3.10 표준 라이브러리와 NumPy, Matplotlib 기반으로 작성되어 별도의 외부 ROS 2 하드웨어 없이 대화형으로 즉시 검증 가능합니다.
+- 두 노트북에는 저장된 셀 출력이 있지만, 이번 문서 보완에서 노트북을 재실행하지 않았습니다. 저장 출력만으로 현재 환경의 실행 성공이나 개인의 학습 완료를 판정하지 않습니다.
+- 개념 이해, 직접 구현과 복습 완료 여부는 사용자 확인이 필요합니다.
+- 메타데이터에는 Python 3.10.12와 `data-analysis` 커널이 기록되어 있습니다. NumPy·Matplotlib과 Jupyter가 필요하며 커널과 가상환경의 실제 연결 여부는 미검증입니다. 자세한 환경 조건은 [노트북 안내](notebooks/README.md#실행-환경과-검증-상태)를 참조하세요.

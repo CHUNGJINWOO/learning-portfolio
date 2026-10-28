@@ -31,3 +31,13 @@
   ```bash
   sudo apt install ros-humble-gazebo-ros-pkgs
   ```
+
+## 4. LIMO SDK 복사본과 검증 범위
+
+- 이 저장소의 `src/limo_ros2/`는 LIMO ROS 2 소스와 모델을 학습·시뮬레이션 자료로 보존합니다.
+- 캡스톤 저장소의 `src/limo_ros2/`는 별도 복사본이며, `capstone_ws/src/limo_ros2/`는 캡스톤 작업 공간에서 사용하는 복사본입니다. 원본과 수정본의 선후 관계는 확인되지 않았습니다.
+- 2026-10-28 로컬 Git 추적 파일 비교에서 이 저장소와 캡스톤 루트 복사본은 50개 파일이 동일하고 공통 파일 1개의 내용이 달랐습니다. 캡스톤 작업 공간 복사본과는 18개가 동일하고 공통 파일 10개가 달랐습니다. 각 경로에만 있는 파일도 있습니다. 차이에는 launch, 드라이버, URDF와 메시 리소스가 포함됩니다.
+- 캡스톤의 `limo_light.launch.py`는 작업 공간의 `limo_base` launch와 `limo_description/launch/load_urdf.launch.py`를 참조합니다. 모델과 launch는 패키지 및 메시 리소스에 의존합니다. 일부 캡스톤 메시 파일은 로컬에 있지만 Git에서 무시되므로 새 clone에서 리소스가 빠질 수 있습니다.
+- 이 저장소의 `limo_car/CMakeLists.txt`는 현재 없는 디렉터리의 설치를 지정합니다. LIMO SDK 전체 빌드와 실행은 이번 문서 정리에서 검증하지 않았으며, 새 clone의 재현성도 미확인입니다.
+- `limo_ros2`는 서드파티 소스입니다. 출처와 기존 고지는 [루트 라이선스 설명](../README.md)을 참조하세요. `limo_base` 소스의 BSD 조건과 package.xml의 Apache 표기는 일치하지 않고 `limo_description` 라이선스는 TODO로 남아 있습니다. 권리 및 원본 조건은 확인 전 확정하지 않습니다.
+- 향후 통합을 검토하려면 각 복사본의 이력과 기능 차이, 캡스톤 launch·URDF 의존성, 메시 배포 및 라이선스 조건을 확인하고 별도 빌드·실행 검증과 사용자 승인을 받아야 합니다.

@@ -153,12 +153,13 @@ portfolio/src/core_pubsub_py/
 ```
 
 ### 5.2 빌드 및 실행 (ROS 2 Humble 환경)
-모든 빌드 및 실행 명령어는 도메인 루트인 `02_ros2_core_curriculum` 디렉터리를 기준으로 수행합니다:
+이 저장소의 기본 빌드 위치는 저장소 루트입니다. 아래 명령은 이번 문서 정리에서 실행 검증하지 않았습니다. 각 새 터미널에서 ROS 2 기본 환경과 루트 overlay를 소싱합니다. 하위 디렉터리에서 별도로 빌드할 수도 있지만 해당 위치의 독립적인 `install/`을 사용해야 합니다:
 
 ```bash
 # 1. ROS 2 환경 소싱 및 워크스페이스 빌드
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+colcon list
 colcon build --packages-select core_pubsub_py
 
 # 2. 로컬 오버레이 환경 반영
@@ -167,7 +168,10 @@ source install/setup.bash
 # 3. 터미널 1: 퍼블리셔 실행
 ros2 run core_pubsub_py minimal_publisher
 
-# 4. 터미널 2: 서브스크라이버 실행
+# 4. 터미널 2: 새 창에서 기본 환경과 루트 overlay 소싱 후 실행
+source /opt/ros/humble/setup.bash
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+source install/setup.bash
 ros2 run core_pubsub_py minimal_subscriber
 ```
 

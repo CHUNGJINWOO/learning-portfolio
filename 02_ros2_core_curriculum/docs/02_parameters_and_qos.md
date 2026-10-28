@@ -81,11 +81,13 @@ def _on_parameter_event_callback(self, event: ParameterEvent) -> None:
 
 ### 4. 실행 및 단계별 실습 절차 (Part A)
 
+저장소 루트에서 `colcon list`로 패키지를 확인하고 `colcon build --packages-select param_qos_py`로 선택 빌드한 뒤 진행합니다. 하위 디렉터리의 독립 빌드는 별도 선택지이며 그 위치의 overlay를 사용해야 합니다. 이 문서 정리에서 명령의 실행 검증은 하지 않았습니다.
+
 > [!IMPORTANT]
 > **새 터미널 환경 설정 안내 (필수):**
 > 실습을 위해 새로운 터미널 창을 열 때마다 반드시 아래 두 단계의 환경 소싱을 수행해야 합니다 (`~/.bashrc`를 변경하지 않는 격리 환경 기준):
 > 1. **ROS 2 기본 환경 소싱:** `source /opt/ros/humble/setup.bash` (`ros2` CLI 기본 바이너리 및 핵심 라이브러리 활성화)
-> 2. **워크스페이스 오버레이 소싱:** 도메인 루트(`02_ros2_core_curriculum`)로 이동 후 `source install/setup.bash` (`param_qos_py` 등 우리가 직접 빌드한 사용자 패키지 로딩)
+> 2. **워크스페이스 오버레이 소싱:** 저장소 루트로 이동 후 `source install/setup.bash` (`param_qos_py` 등 우리가 직접 빌드한 사용자 패키지 로딩)
 >
 > *(참고: `ros2 param set`이나 `ros2 topic info` 같은 범용 CLI 도구만 실행할 때는 기본 환경 소싱만으로도 동작하지만, 노드 실행(`ros2 run`)을 포함한 일관된 실습을 위해 새 터미널마다 두 환경을 모두 소싱하는 것을 권장합니다.)*
 
@@ -93,7 +95,7 @@ def _on_parameter_event_callback(self, event: ParameterEvent) -> None:
 ```bash
 # 터미널 1: 환경 소싱 및 기본 노드 실행
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run param_qos_py dynamic_telemetry_publisher
@@ -108,8 +110,10 @@ ros2 run param_qos_py dynamic_telemetry_publisher
 
 #### 4.2 정상 파라미터 동적 변경 (1.0 Hz -> 5.0 Hz)
 ```bash
-# 터미널 2 (새 창 오픈 시 기본 ROS 2 환경 소싱 필수)
+# 터미널 2 (새 창): 기본 환경과 루트 overlay 소싱
 source /opt/ros/humble/setup.bash
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+source install/setup.bash
 
 # 파라미터 변경 요청 (1.0 Hz -> 5.0 Hz)
 ros2 param set /dynamic_telemetry_publisher publish_rate_hz 5.0
@@ -143,13 +147,13 @@ Setting parameter failed: publish_rate_hz must be in (0.0, 50.0] Hz, got -10.0
 
 #### 4.4 YAML 파일을 통한 실행 시점 설정 주입
 ```bash
-# 주의: 상대 경로(src/...)를 사용하므로 반드시 도메인 루트(02_ros2_core_curriculum)에서 실행해야 합니다.
-cd 02_ros2_core_curriculum
+# 아래 YAML 상대 경로는 저장소 루트를 기준으로 합니다.
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 
 # 터미널 1의 기존 노드를 종료(Ctrl+C)한 후 YAML 설정 파일 주입하여 실행
-ros2 run param_qos_py dynamic_telemetry_publisher --ros-args --params-file src/param_qos_py/config/default_params.yaml
+ros2 run param_qos_py dynamic_telemetry_publisher --ros-args --params-file 02_ros2_core_curriculum/src/param_qos_py/config/default_params.yaml
 ```
 - 기본값(`1.0Hz`, `telemetry_bot_01`) 대신 YAML에 정의된 `2.5Hz` 및 `configured_bot_99`로 즉시 시작됩니다.
 
@@ -191,14 +195,14 @@ DDS 엔드포인트 연결 규칙: **$\text{Offered (Publisher)} \ge \text{Reque
 ```bash
 # 터미널 1: 환경 소싱 후 SensorDataQoS 퍼블리셔 실행 (10Hz IMU 스트리밍)
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run param_qos_py qos_sensor_streamer
 
 # 터미널 2 (새 창): 환경 소싱 후 기본 Best Effort 구독자 실행
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run param_qos_py qos_sensor_listener
@@ -220,8 +224,10 @@ ros2 run param_qos_py qos_sensor_listener --ros-args -p reliability_mode:=reliab
 
 #### 6.3 원인 진단 (`ros2 topic info --verbose`)
 ```bash
-# 터미널 3 (새 창): ROS 2 기본 환경 소싱 후 토픽 엔드포인트 세부 진단
+# 터미널 3 (새 창): 기본 환경과 루트 overlay 소싱 후 토픽 진단
 source /opt/ros/humble/setup.bash
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+source install/setup.bash
 ros2 topic info --verbose /sensor/imu_stream
 ```
 **진단 출력:**
@@ -248,7 +254,7 @@ Subscription count: 1
 ```bash
 # 터미널 1: 환경 소싱 후 Transient Local 설정 퍼블리셔 실행
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run param_qos_py qos_config_publisher
@@ -265,7 +271,7 @@ ros2 run param_qos_py qos_config_publisher
 ```bash
 # 터미널 2 (새 창): 환경 소싱 후 퍼블리셔가 이미 발행을 마친 상태에서 뒤늦게 구독자 실행
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run param_qos_py qos_config_listener

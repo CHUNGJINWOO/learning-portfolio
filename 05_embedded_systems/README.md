@@ -11,8 +11,8 @@
 | **DIP 스위치** | 다채널 딥스위치 디지털 입력 | 다중 비트 바이너리 상태 읽기 및 모드 분기 |
 | **FND (7-Segment)** | 7세그먼트 디스플레이 숫자 표시 | 공통 음극/양극 핀 매핑 및 숫자 디코딩 로직 |
 | **LED** | 범용 발광 다이오드 제어 | GPIO 출력 제어, 딜레이 및 펄스 제어 |
-| **PIR 모션감지 센서** | 인체 적외선 감지 센서 | 디지털 인터럽트 감지 및 보안 감시 로직 |
-| **조이스틱** | 2축 아날로그 조이스틱 + 푸시 버튼 | ADC 아날로그 전압 읽기, 데드존(Deadzone) 처리 |
+| **PIR 모션감지 센서** | 인체 적외선 감지 센서 | `digitalRead` 반복 확인, LED 상태 반영 및 시리얼 출력 |
+| **조이스틱** | 2축 아날로그 조이스틱 + 푸시 버튼 | 버튼과 X·Y 아날로그 입력값 읽기 및 시리얼 출력 |
 | **택트 스위치** | 모멘터리 푸시 버튼 입력 | 플로팅 현상 방지 및 풀업(Pull-up) 저항 처리 |
 | **택트 스위치 풀다운** | 외부 풀다운(Pull-down) 회로 버튼 | 하드웨어 풀다운 회로 동작 원리 검증 |
 | **포텐셔미터** | 가변저항 아날로그 입력 | 전압 분배 법칙 및 ADC 해상도 매핑 |
@@ -26,4 +26,4 @@
 - `wokwi.toml`: 시뮬레이터 구동 설정
 - `*.ino`: 마이크로컨트롤러 C/C++ 펌웨어 소스 코드
 
-VS Code의 [Wokwi Simulator 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode)을 설치한 후, 각 프로젝트 폴더의 `diagram.json`을 열어 에뮬레이션을 실행할 수 있습니다.
+8개 `diagram.json`은 모두 `wokwi-arduino-mega` 보드를 사용합니다. 각 `wokwi.toml`은 해당 프로젝트의 `build/<스케치명>.ino.hex`와 `build/<스케치명>.ino.elf`를 참조합니다. 따라서 [Wokwi Simulator 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode)을 사용하기 전에 보드에 맞는 펌웨어를 빌드하여 설정된 경로에 준비해야 합니다. 일부 스케치에는 주석 처리된 여러 예제가 있으므로 활성 예제를 확인하세요. 빌드 명령과 시뮬레이션 실행은 이번 문서 정리에서 검증하지 않았습니다.

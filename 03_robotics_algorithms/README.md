@@ -19,19 +19,22 @@
   $$grid\_y = \lfloor \frac{world\_y - origin\_y}{resolution} \rfloor$$
 - **기능:**
   - ROS 2 `nav_msgs/msg/OccupancyGrid` 메시지를 실시간 수신하여 해상도(`resolution`), 원점 오프셋(`origin`), 격자 인덱스를 분석
-  - 지정한 월드 좌표 `(x, y)`에 대응하는 2D 격자 인덱스 및 셀 경계 좌표 정밀 계산
+  - 코드에 고정된 월드 좌표 `(-2.0, -2.0)`의 격자 인덱스 및 셀 경계 계산
+  - 원점 위치와 해상도만 사용하며 원점 회전은 처리하지 않음
 
-### 3. `map_change_monitor.py` (점유격자 델타 모니터링)
+### 3. `map_change_monitor.py` (점유격자 변경 감지)
 - **기능:**
-  - 주기적으로 발행되는 `/map` 토픽의 변화량을 추적
-  - 이전 맵과 최신 맵 간의 셀 점유 상태 변화(Free ↔ Occupied ↔ Unknown)를 비교하여 맵 업데이트 빈도 및 안정성 진단
+  - `/map` 메시지의 데이터에 대한 SHA-256 해시를 이전 메시지와 비교해 변경 여부를 기록
+  - 셀별 상태 전환이나 변경된 셀 수는 계산하지 않음
 
 ### 4. `map_visualizer.py` (터미널 및 Matplotlib 맵 시각화)
-- **기능:** 점유격자 1D 직렬화 배열(`int8[]`)을 2D 2차원 넘파이 행렬로 재구성하여 콘솔 ASCII 및 그래픽 플롯 렌더링
+- **기능:** 점유격자 배열을 2D NumPy 행렬로 재구성하여 Matplotlib 그래프로 표시하고 셀 상태별 개수를 로깅
 
 ---
 
 ## 🛠️ 실행 및 테스트 방법
+
+저장소 루트에서 실행합니다. `ray_trace.py`는 Python 표준 라이브러리만 사용하는 독립 시뮬레이션입니다. 나머지 세 도구는 ROS 2의 `rclpy`, `nav_msgs`와 `/map`의 `OccupancyGrid` 발행자가 필요합니다. 시각화에는 NumPy, Matplotlib 및 그래픽 표시 환경도 필요합니다. 아래 명령은 이번 문서 정리에서 실행 검증하지 않았습니다.
 
 ```bash
 # ROS 2 환경 로드
@@ -42,4 +45,8 @@ python3 03_robotics_algorithms/ray_trace.py
 
 # 2. 실시간 맵 인스펙터 노드 실행 (/map 토픽 수신 대기)
 python3 03_robotics_algorithms/map_inspector.py
+
+# 각각 별도 터미널에서 실행 (ROS 2 환경 소싱 필요)
+python3 03_robotics_algorithms/map_change_monitor.py
+python3 03_robotics_algorithms/map_visualizer.py
 ```

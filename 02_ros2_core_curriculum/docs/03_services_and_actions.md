@@ -72,20 +72,23 @@ Action 서버가 작업을 수행(`execute_callback`)하는 동안 클라이언�
 
 ## 4. 환경 설정 및 빌드 절차
 
+기본 빌드 위치는 저장소 루트입니다. 하위 디렉터리의 독립 빌드도 가능하지만 그 위치의 별도 overlay를 사용해야 합니다. 아래 명령은 이번 문서 정리에서 실행 검증하지 않았습니다.
+
 > [!IMPORTANT]
 > **새 터미널 환경 설정 안내:**
 > 새 터미널 창을 열 때마다 반드시 아래 두 단계의 환경 소싱을 수행해야 합니다:
 > ```bash
 > source /opt/ros/humble/setup.bash
-> cd 02_ros2_core_curriculum
+> cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 > source install/setup.bash
 > ```
 
 ### 워크스페이스 빌드
 ```bash
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 
+colcon list
 colcon build --packages-select service_action_py
 source install/setup.bash
 ```
@@ -98,7 +101,7 @@ source install/setup.bash
 ```bash
 # 터미널 1
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run service_action_py add_two_ints_server
@@ -112,7 +115,7 @@ ros2 run service_action_py add_two_ints_server
 ```bash
 # 터미널 2 (새 창)
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run service_action_py add_two_ints_client -- 10 20
@@ -170,7 +173,7 @@ ros2 run service_action_py add_two_ints_client -- 5 7
 ```bash
 # 터미널 1
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run service_action_py fibonacci_action_server
@@ -184,7 +187,7 @@ ros2 run service_action_py fibonacci_action_server
 ```bash
 # 터미널 2 (새 창)
 source /opt/ros/humble/setup.bash
-cd 02_ros2_core_curriculum
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
 source install/setup.bash
 
 ros2 run service_action_py fibonacci_action_client -- 10

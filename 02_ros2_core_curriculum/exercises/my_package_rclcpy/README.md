@@ -45,9 +45,19 @@
 
 ## 3. 패키지 빌드 방법
 
-현재 패키지 소스 코드는 Git 저장소인 `~/learning/learning-portfolio/02_ros2_core_curriculum/exercises/my_package_rclcpy`에 위치하며, 빌드 작업 공간(Workspace)은 `~/ros2_ws`로 분리되어 있습니다. 작업 환경에 맞춰 아래 세 가지 방법 중 하나를 선택하여 빌드할 수 있습니다.
+패키지 소스는 `02_ros2_core_curriculum/exercises/my_package_rclcpy`에 있습니다. 이 저장소의 기본 빌드 위치는 저장소 루트입니다. 아래 명령은 이번 문서 정리에서 실행 검증하지 않았습니다.
 
-### 방법 1: 외부 경로 직접 지정 빌드 (`--paths` 옵션 활용 - 권장)
+```bash
+source /opt/ros/humble/setup.bash
+cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+colcon list  # 패키지 탐색 결과 확인
+colcon build --symlink-install --packages-select my_package_rclcpy
+source install/setup.bash
+```
+
+새 터미널에서도 ROS 2 기본 환경과 저장소 루트의 `install/setup.bash`를 소싱합니다. 아래 세 방법은 별도의 `~/ros2_ws`를 사용할 때의 선택지이며, 해당 워크스페이스의 overlay를 사용합니다.
+
+### 방법 1: 외부 경로 직접 지정 빌드 (`--paths` 옵션 활용)
 `colcon`의 `--paths` 옵션을 사용하면 워크스페이스 디렉터리 구조를 변경하지 않고도 외부 경로의 패키지를 직접 지정하여 빌드할 수 있습니다 (`colcon-core 0.21.3+`에서 공식 지원).
 
 ```bash

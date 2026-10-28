@@ -106,7 +106,7 @@ learning-portfolio/ (로컬 작업 경로: ~/learning/learning-portfolio)
 - **핵심 역량:**
   - Wokwi 기반 아두이노(C/C++) 마이크로컨트롤러 8종 시뮬레이션
   - DIP 스위치(비트 입력), FND 7세그먼트(디코딩 표시), LED GPIO 제어
-  - PIR 모션 센서(인터럽트 감지), 2축 조이스틱(ADC 및 데드존), 풀업/풀다운 택트 스위치, 가변저항(분압 법칙)
+  - PIR 모션 센서(디지털 입력 반복 읽기), 2축 조이스틱(버튼 및 ADC 입력 읽기), 풀업/풀다운 택트 스위치, 가변저항(분압 법칙)
 
 ---
 
@@ -141,12 +141,17 @@ learning-portfolio/ (로컬 작업 경로: ~/learning/learning-portfolio)
 
 ### 4.1 ROS 2 Humble 빌드 환경 구성
 
+다음은 이 저장소에서 권장하는 **저장소 루트** 기준 흐름입니다. ROS 2의 유일한 워크스페이스 방식은 아니며, 하위 디렉터리나 외부 워크스페이스의 별도 빌드도 가능합니다. 패키지 탐색 결과를 확인한 뒤 필요한 패키지만 선택합니다. 각 새 터미널에서 기본 환경과 같은 루트의 overlay를 소싱하세요. 아래 명령은 이번 문서 정리에서 실행 검증하지 않았습니다.
+
+LIMO SDK 전체 빌드는 별도 범위이며 검증되지 않았습니다. `limo_car/CMakeLists.txt`의 설치 대상 중 현재 없는 디렉터리가 있어 별도 확인이 필요합니다.
+
 ```bash
 # 1. ROS 2 기본 환경 로드
 source /opt/ros/humble/setup.bash
 
 # 2. 통합 학습 패키지 빌드 (02_ros2_core_curriculum)
 cd ~/learning/learning-portfolio  # 또는 클론한 저장소 루트
+colcon list  # 패키지 탐색 결과 확인
 colcon build --symlink-install --packages-select \
   core_pubsub_py \
   param_qos_py \
